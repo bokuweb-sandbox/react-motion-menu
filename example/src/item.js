@@ -12,21 +12,20 @@ export default class Item extends Component{
   }
 
   start() {
-    setTimeout(() => this.setState({state: 1 }), 100);
+    setTimeout(() => this.setState({state: 1 }), 60);
     setTimeout(() => {
       this.setState({state: 2 });
       if (this.props.onAnimationEnd) this.props.onAnimationEnd();
-    }, 130);
+    }, 60);
   }
 
   reverse() {
+    if (this.props.onAnimationEnd) this.props.onAnimationEnd();
     this.setState({state: 0});
-    this.props.onAnimationEnd.bind(this);
   }
 
   render() {
     let style;
-
     switch (this.state.state) {
       case 0 :
         style = {

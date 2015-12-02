@@ -31,6 +31,7 @@ export default class Menu extends Component{
         this.setState({state: this.state.state+1});
       }
     } else {
+
       if (this.state.state > 1) {
         this.setState({state: this.state.state-1});
       }
@@ -38,9 +39,14 @@ export default class Menu extends Component{
   }
 
   onClick() {
-    this.setState({action: "close"});
-    for(let i = 1; i < this.state.state; i++)
-      this.refs["item"+i].reverse()
+    if(this.state.action === "open") {
+      this.setState({action: "close"});
+      for(let i = 1; i < this.state.state; i++)
+        this.refs["item"+i].reverse()
+    } else {
+      this.setState({action: "open"});
+      this.refs["item"+this.state.state].start();
+    }
   }
 
   getItem() {
