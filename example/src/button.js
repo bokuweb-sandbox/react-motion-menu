@@ -2,26 +2,15 @@ import React, {Component} from 'react';
 import assign from 'react/lib/Object.assign';
 import {Motion, spring} from 'react-motion';
 
-export default class Item extends Component{
+export default class Button extends Component{
 
   constructor(props) {
     super(props);
     this.state = {
       state: 0
     };
-  }
-
-  start() {
     setTimeout(() => this.setState({state: 1 }), 100);
-    setTimeout(() => {
-      this.setState({state: 2 });
-      if (this.props.onAnimationEnd) this.props.onAnimationEnd();
-    }, 130);
-  }
-
-  reverse() {
-    this.setState({state: 0});
-    this.props.onAnimationEnd.bind(this);
+    setTimeout(() => this.setState({state: 2 }), 150);
   }
 
   render() {
@@ -30,33 +19,34 @@ export default class Item extends Component{
     switch (this.state.state) {
       case 0 :
         style = {
-          scaleX : spring(0, [1500, 100]),
-          scaleY : spring(0, [1500, 100]),
-          y : spring(this.props.y, [1500, 50])
+          scaleX : spring(1, [1,1]),
+          scaleY : spring(1, [1,1]),
+          y : this.props.y
         };
         break;
       case 1 :
         style = {
-          scaleX : spring(0.7, [1500, 150]),
-          scaleY : spring(1.6, [1500, 150]),
-          y : spring(this.props.y-this.props.distance, [1500, 100])
+          scaleX : spring(0.6, [1500, 50]),
+          scaleY : spring(0.6, [1500, 50]),
+          y : this.props.y
         };
         break;
       case 2 :
         style = {
-          scaleX : spring(1, [1500, 18]),
-          scaleY : spring(1, [1500, 18]),
-          y : spring(this.props.y-this.props.distance, [1500, 100])
+          scaleX : spring(1, [1500, 10]),
+          scaleY : spring(1, [1500, 10]),
+          y : this.props.y
         };
-
-        break;
+        break
       default : break;
     }
 
     return (
       <Motion style={style}>
         {({scaleX, scaleY, y}) =>
-          <div customClass={this.props.customClass}
+          <div
+            onClick={this.props.onClick}
+            customClass={this.props.customClass}
             style={assign({}, this.props.customStyle, {
               transform: `translate3d(0, ${y}px, 0) scaleX(${scaleX}) scaleY(${scaleY})`,
               WebkitTransform: `translate3d(0, ${y}px, 0) scaleX(${scaleX}) scaleY(${scaleY})`,
