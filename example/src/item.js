@@ -9,7 +9,10 @@ export default class Item extends Component{
       state: 0
     };
     setTimeout(() => this.setState({state: 1 }), 100);
-    setTimeout(() => this.setState({state: 2 }), 500);
+    setTimeout(() => {
+      if (this.props.onAnimationEnd) this.props.onAnimationEnd();
+      this.setState({state: 2 })
+    }, 200);
   }
 
   render() {
@@ -18,25 +21,25 @@ export default class Item extends Component{
     switch (this.state.state) {
       case 0 :
         style = {
-          scaleX : spring(0.5, [1,1]),
-          scaleY : spring(0.5, [1,1]),
+          scaleX : spring(0, [1,1]),
+          scaleY : spring(0, [1,1]),
           y : this.props.y
         };
         break;
       case 1 :
         style = {
-          scaleX : spring(0.7, [1000, 100]),
-          scaleY : spring(1.6, [1000, 100]),
-          y : spring(this.props.y-100, [60, 100])
+          scaleX : spring(0.7, [1500, 100]),
+          scaleY : spring(1.6, [1500, 100]),
+          y : spring(this.props.y-50, [1000, 100])
         };
         break;
       case 2 :
         style = {
           scaleX : spring(1, [1500, 5]),
           scaleY : spring(1, [1500, 5]),
-          y : spring(this.props.y-100, [1000, 100])
+          y : spring(this.props.y-50, [1000, 100])
         };
-        if (this.props.onAnimationEnd) this.props.onAnimationEnd();
+
         break;
       default : break;
     }

@@ -6,17 +6,31 @@ export default class Example extends Component{
 
   constructor(props) {
     super(props);
+    this.state = {
+      state : 1
+    };
   }
 
-  end1() {
-
+  end() {
+    console.log("end")
+    if (this.state.state < 3) 
+      this.setState({state: this.state.state+1});
   }
-  
+
+  getItem() {
+      let items = [];
+      for(let i = 0; i < this.state.state; i++) {
+        items.push(<Item onAnimationEnd={this.end.bind(this)} y={~~`${i*-50 + 50}`} key={i}/>);
+      }
+      console.dir(items);
+      return items;
+  }
+
   render() {
+
     return (
       <div>
-        <Item onAnimationEnd={this.end1.bind(this)} y={100}/>
-        <Item y={0}/>
+        {this.getItem()}
       </div>
     );
   }
