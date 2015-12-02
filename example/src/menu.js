@@ -75,7 +75,7 @@ export default class Menu extends Component{
         height={50}
         y={500}
         key={"button"} >
-        x
+        <i className="fa fa-bars"></i>
       </Button>
     ];
     for(let i = 0; i < this.state.itemNumber; i+=1) {

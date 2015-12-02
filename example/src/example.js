@@ -6,8 +6,8 @@ export default class Example extends Component{
   render() {
     return (
       <Menu>
-        <div>1</div>
-        <div>2</div>
+        <div><i className="fa fa-home"></i></div>
+        <div><i className="fa fa-heart"></i></div>
         <div>3</div>
         <div>4</div>
         <div>5</div>
