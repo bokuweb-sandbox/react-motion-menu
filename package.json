@@ -1,0 +1,57 @@
+{
+  "name": "react-sprite-animation",
+  "version": "0.1.0",
+  "main": "lib/index.js",
+  "scripts": {
+    "watch": "npm run watch:lib & npm run watch:example",
+    "watch:lib": "watchify --extension=js -o lib/index.js src/index.js",
+    "watch:example": "watchify --extension=js -o example/dist/bundle.js example/src/index.js",
+    "build": "npm run build:lib & npm run build:example",
+    "build:lib": "browserify --extension=js -o lib/index.js src/index.js",
+    "build:example": "browserify --extension=js -o example/dist/bundle.js example/src/index.js",
+    "test": "karma start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bokuweb/react-resizable-box.git"
+  },
+  "keywords": [
+    "react",
+    "resize",
+    "resizable",
+    "component"
+  ],
+  "author": "bokuweb",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bokuweb/react-resizable-box/issues"
+  },
+  "homepage": "https://github.com/bokuweb/react-resizable-box",
+  "peerDependencies": {
+    "react": ">=0.14.3",
+    "react-dom": ">=0.14.3"
+  },
+  "devDependencies": {
+    "babelify": "6.4.0",
+    "browserify": "^12.0.1",
+    "watchify": "3.5.0"
+  },
+  "browserify": {
+    "transform": [
+      "babelify"
+    ]
+  },
+  "dependencies": {
+    "lodash.assign": "^3.2.0",
+    "lodash.some": "^3.2.3",
+    "react": "^0.14.3",
+    "react-dom": "^0.14.3",
+    "react-motion": "^0.3.1"
+  },
+  "files": [
+    "lib"
+  ],
+  "directories": {
+    "example": "example"
+  }
+}
