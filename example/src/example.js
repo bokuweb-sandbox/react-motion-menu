@@ -4,7 +4,6 @@ import Menu from './menu'
 
 export default class Example extends Component{
   render() {
-
     return (
       <Menu>
         <div>1</div>

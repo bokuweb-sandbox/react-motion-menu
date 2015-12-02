@@ -3,46 +3,36 @@ import assign from 'react/lib/Object.assign';
 import {Motion, spring} from 'react-motion';
 
 export default class Button extends Component{
-
   constructor(props) {
     super(props);
-    this.state = {
-      state: 0
-    };
-    setTimeout(() => this.setState({state: 1 }), 100);
-    setTimeout(() => this.setState({state: 2 }), 150);
+    this.state = {sequence: 0};
+    this.params = [
+      {
+        scaleX : spring(1, [1,1]),
+        scaleY : spring(1, [1,1]),
+        y : this.props.y
+      },
+      {
+        scaleX : spring(0.6, [1500, 50]),
+        scaleY : spring(0.6, [1500, 50]),
+        y : this.props.y
+      },
+      {
+        scaleX : spring(1, [1500, 10]),
+        scaleY : spring(1, [1500, 10]),
+        y : this.props.y
+      }
+    ];
+  }
+
+  start() {
+    setTimeout(() => this.setState({sequence: 1 }), 100);
+    setTimeout(() => this.setState({sequence: 2 }), 150);
   }
 
   render() {
-    let style;
-
-    switch (this.state.state) {
-      case 0 :
-        style = {
-          scaleX : spring(1, [1,1]),
-          scaleY : spring(1, [1,1]),
-          y : this.props.y
-        };
-        break;
-      case 1 :
-        style = {
-          scaleX : spring(0.6, [1500, 50]),
-          scaleY : spring(0.6, [1500, 50]),
-          y : this.props.y
-        };
-        break;
-      case 2 :
-        style = {
-          scaleX : spring(1, [1500, 10]),
-          scaleY : spring(1, [1500, 10]),
-          y : this.props.y
-        };
-        break
-      default : break;
-    }
-
     return (
-      <Motion style={style}>
+      <Motion style={this.params[this.state.sequence]}>
         {({scaleX, scaleY, y}) =>
           <div
             onClick={this.props.onClick}

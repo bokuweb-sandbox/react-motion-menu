@@ -4,55 +4,65 @@ import Item from './item'
 import Button from './button'
 
 export default class Menu extends Component{
-
   constructor(props) {
     super(props);
     this.state = {
-      state: 1,
-      action: "open"
+      itemNumber: 1,
+      status: "idle"
     };
   }
 
   componentDidUpdate() {
     if(this.state.action === "open")
-      this.refs["item"+this.state.state].start();
+      this.refs["item"+this.state.itemNumber].start();
     else
-      this.refs["item"+this.state.state].reverse();
+      this.refs["item"+this.state.itemNumber].reverse();
   }
 
-  componentDidMount() {
-    // FIXME: Add start method
-    this.refs["item"+this.state.state].start();
+  open() {
+    if(this.state.action === "open") return;
+    this._open();
   }
 
-  end() {
+  _open() {
+    this.setState({action: "open"});
+    this.refs.button.start();
+    this.refs["item"+this.state.itemNumber].start();
+  }
+
+  close() {
+    if(this.state.action !== "open") return;
+    this._close();
+  }
+
+  _close() {
+    this.setState({action: "close"});
+    for(let i = 1; i < this.state.itemNumber; i++)
+      this.refs["item"+i].reverse()
+  }
+
+  _end() {
     if(this.state.action === "open") {
-      if (this.state.state < this.props.children.length) {
-        this.setState({state: this.state.state+1});
+      if (this.state.itemNumber < this.props.children.length) {
+        this.setState({itemNumber: this.state.itemNumber+1});
       }
     } else {
-
-      if (this.state.state > 1) {
-        this.setState({state: this.state.state-1});
+      if (this.state.itemNumber > 1) {
+        this.setState({itemNumber: this.state.itemNumber-1});
       }
     }
   }
 
-  onClick() {
-    if(this.state.action === "open") {
-      this.setState({action: "close"});
-      for(let i = 1; i < this.state.state; i++)
-        this.refs["item"+i].reverse()
-    } else {
-      this.setState({action: "open"});
-      this.refs["item"+this.state.state].start();
-    }
+  _onClick() {
+    if(this.state.action === "open") this._close();
+    else this._open();
   }
 
-  getItem() {
+  _getItems() {
     let items = [
       <Button
-        onClick={this.onClick.bind(this)}
+        ref="button"
+        onClick={this._onClick.bind(this)}
         customStyle={{
           color: "#fff",
           textAlign:"center",
@@ -68,12 +78,12 @@ export default class Menu extends Component{
         x
       </Button>
     ];
-    for(let i = 0; i < this.state.state; i++) {
+    for(let i = 0; i < this.state.itemNumber; i+=1) {
       items.push(
         <Item
           key={i}
           ref={`item${i+1}`}
-          onAnimationEnd={this.end.bind(this)}
+          onAnimationEnd={this._end.bind(this)}
           customStyle={{
             color: "#fff",
             textAlign:"center",
@@ -85,7 +95,7 @@ export default class Menu extends Component{
           distance={80}
           width={50}
           height={50}
-          y={~~`${i*-80 + 500}`} >
+          y={i*-80 + 500} >
           {this.props.children[i].props.children}
         </Item>
       );
@@ -94,10 +104,9 @@ export default class Menu extends Component{
   }
 
   render() {
-
     return (
       <div>
-        {this.getItem()}
+        {this._getItems()}
       </div>
     );
   }
