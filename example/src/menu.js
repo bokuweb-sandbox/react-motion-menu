@@ -37,20 +37,25 @@ export default class Menu extends Component{
 
   _close() {
     this.setState({action: "close"});
+    this.refs.button.reverse();
     for(let i = 1; i < this.state.itemNumber; i++)
-      this.refs["item"+i].reverse()
+      this.refs["item"+i].reverse();
   }
 
-  _end() {
-    if(this.state.action === "open") {
-      if (this.state.itemNumber < this.props.children.length) {
-        this.setState({itemNumber: this.state.itemNumber+1});
-      }
-    } else {
-      if (this.state.itemNumber > 1) {
-        this.setState({itemNumber: this.state.itemNumber-1});
-      }
-    }
+  _onOpenEnd(name) {
+    if(this.state.action !== "open") return;
+    if (this.state.itemNumber < this.props.children.length-1)
+      return this.setState({itemNumber: this.state.itemNumber+1});
+    if (name === `item${this.props.children.length-1}`)
+      if(this.props.onOpen) this.props.onOpen();
+  }
+
+  _onCloseEnd(name) {
+    if(this.state.action === "open") return;
+    if (this.state.itemNumber > 1)
+      return this.setState({itemNumber: this.state.itemNumber-1});
+    if (name === 'item1')
+      if(this.props.onClose) this.props.onClose();
   }
 
   _onClick() {
@@ -59,23 +64,19 @@ export default class Menu extends Component{
   }
 
   _getItems() {
+    let button;
+    let children;
+    [button, ...children] = this.props.children;
     let items = [
       <Button
         ref="button"
         onClick={this._onClick.bind(this)}
-        customStyle={{
-          color: "#fff",
-          textAlign:"center",
-          lineHeight:"50px",
-          backgroundColor: "#16A085",
-          border: "solid 1px #16A085",
-          borderRadius: "50%"
-        }}
-        width={50}
-        height={50}
-        y={500}
+        customStyle={this.props.customStyle}
+        width={this.props.width}
+        height={this.props.height}
+        y={this.props.y}
         key={"button"} >
-        <i className="fa fa-bars"></i>
+        {button.props.children}
       </Button>
     ];
     for(let i = 0; i < this.state.itemNumber; i+=1) {
@@ -83,20 +84,15 @@ export default class Menu extends Component{
         <Item
           key={i}
           ref={`item${i+1}`}
-          onAnimationEnd={this._end.bind(this)}
-          customStyle={{
-            color: "#fff",
-            textAlign:"center",
-            lineHeight:"50px",
-            backgroundColor: "#16A085",
-            border: "solid 1px #16A085",
-            borderRadius: "50%"
-          }}
-          distance={80}
-          width={50}
-          height={50}
-          y={i*-80 + 500} >
-          {this.props.children[i].props.children}
+          name ={`item${i+1}`}
+          onOpenAnimationEnd={this._onOpenEnd.bind(this)}
+          onCloseAnimationEnd={this._onCloseEnd.bind(this)}
+          customStyle={this.props.customStyle}
+          width={this.props.width}
+          height={this.props.height}
+          distance={this.props.distance}
+          y={i*-this.props.distance + this.props.y} >
+          {children[i].props.children}
         </Item>
       );
     }

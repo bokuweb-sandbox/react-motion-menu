@@ -32,13 +32,13 @@ export default class Item extends Component{
 
     setTimeout(() => {
       this.setState({sequence: 2 });
-      if (this.props.onAnimationEnd) this.props.onAnimationEnd();
+      if (this.props.onOpenAnimationEnd) this.props.onOpenAnimationEnd(this.props.name);
     }, 80);
   }
 
   reverse() {
     setTimeout(() => {
-      if (this.props.onAnimationEnd) this.props.onAnimationEnd();
+      if (this.props.onCloseAnimationEnd) this.props.onCloseAnimationEnd(this.props.name);
     }, 80);
     this.setState({sequence: 0});
   }

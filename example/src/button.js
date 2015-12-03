@@ -8,8 +8,8 @@ export default class Button extends Component{
     this.state = {sequence: 0};
     this.params = [
       {
-        scaleX : spring(1, [1,1]),
-        scaleY : spring(1, [1,1]),
+        scaleX : spring(1, [1500,10]),
+        scaleY : spring(1, [1500,10]),
         y : this.props.y
       },
       {
@@ -30,6 +30,11 @@ export default class Button extends Component{
     setTimeout(() => this.setState({sequence: 2 }), 150);
   }
 
+  reverse() {
+    this.setState({sequence: 1 });
+    setTimeout(() => this.setState({sequence: 0 }), 50);
+  }
+  
   render() {
     return (
       <Motion style={this.params[this.state.sequence]}>
