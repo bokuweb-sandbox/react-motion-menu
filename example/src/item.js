@@ -1,60 +1,60 @@
 import React, {Component} from 'react';
+import assign from 'react/lib/Object.assign';
 import {Motion, spring} from 'react-motion';
 
 export default class Item extends Component{
-
   constructor(props) {
     super(props);
-    this.state = {
-      state: 0
-    };
-    setTimeout(() => this.setState({state: 1 }), 100);
-    setTimeout(() => this.setState({state: 2 }), 500);
+    this.state = {sequence: 0};
+    this.params = [
+      {
+        scaleX : spring(0, [1500, 100]),
+        scaleY : spring(0, [1500, 100]),
+        y : spring(this.props.y, [1500, 50])
+      },
+      {
+        scaleX : spring(0.7, [1500, 150]),
+        scaleY : spring(1.6, [1500, 150]),
+        y : spring(this.props.y-this.props.distance, [1500, 100])
+      },
+      {
+        scaleX : spring(1, [1500, 18]),
+        scaleY : spring(1, [1500, 18]),
+        y : spring(this.props.y-this.props.distance, [1500, 100])
+      }
+    ];
+  }
+
+  start() {
+    setTimeout(() => {
+      this.setState({sequence: 1 });
+    }, 60);
+
+    setTimeout(() => {
+      this.setState({sequence: 2 });
+      if (this.props.onOpenAnimationEnd) this.props.onOpenAnimationEnd(this.props.name);
+    }, 80);
+  }
+
+  reverse() {
+    setTimeout(() => {
+      if (this.props.onCloseAnimationEnd) this.props.onCloseAnimationEnd(this.props.name);
+    }, 80);
+    this.setState({sequence: 0});
   }
 
   render() {
-    let style;
-
-    switch (this.state.state) {
-      case 0 :
-        style = {
-          scaleX : spring(0.5, [1,1]),
-          scaleY : spring(0.5, [1,1]),
-          y : this.props.y
-        };
-        break;
-      case 1 :
-        style = {
-          scaleX : spring(0.7, [1000, 100]),
-          scaleY : spring(1.6, [1000, 100]),
-          y : spring(this.props.y-100, [60, 100])
-        };
-        break;
-      case 2 :
-        style = {
-          scaleX : spring(1, [1500, 5]),
-          scaleY : spring(1, [1500, 5]),
-          y : spring(this.props.y-100, [1000, 100])
-        };
-        if (this.props.onAnimationEnd) this.props.onAnimationEnd();
-        break;
-      default : break;
-    }
-
     return (
-      <Motion style={style}>
+      <Motion style={this.params[this.state.sequence]}>
         {({scaleX, scaleY, y}) =>
           <div customClass={this.props.customClass}
-            style={{
+            style={assign({}, this.props.customStyle, {
               transform: `translate3d(0, ${y}px, 0) scaleX(${scaleX}) scaleY(${scaleY})`,
               WebkitTransform: `translate3d(0, ${y}px, 0) scaleX(${scaleX}) scaleY(${scaleY})`,
               position: 'absolute',
-              backgroundColor: "#000",
-              border: "solid 1px #000",
-              borderRadius: "50%",
-              width: 30,
-              height: 30
-            }} >
+              width: this.props.width,
+              height: this.props.height
+            })} >
             {this.props.children}
           </div>
         }
