@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Motion, spring} from 'react-motion';
-import Menu from './menu'
+import Menu from '../../lib'
 
 export default class Example extends Component{
   constructor(props) {
