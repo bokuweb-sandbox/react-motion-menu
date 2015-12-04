@@ -10,17 +10,14 @@ export default class Button extends Component{
       {
         scaleX : spring(1, [1500,10]),
         scaleY : spring(1, [1500,10]),
-        y : this.props.y
       },
       {
         scaleX : spring(0.6, [1500, 50]),
         scaleY : spring(0.6, [1500, 50]),
-        y : this.props.y
       },
       {
         scaleX : spring(1, [1500, 10]),
         scaleY : spring(1, [1500, 10]),
-        y : this.props.y
       }
     ];
   }
@@ -34,20 +31,21 @@ export default class Button extends Component{
     this.setState({sequence: 1 });
     setTimeout(() => this.setState({sequence: 0 }), 50);
   }
-  
+
   render() {
+    const {x, y, width, height, customStyle, onClick, customClass} = this.props;
     return (
       <Motion style={this.params[this.state.sequence]}>
-        {({scaleX, scaleY, y}) =>
+        {({scaleX, scaleY}) =>
           <div
-            onClick={this.props.onClick}
-            customClass={this.props.customClass}
-            style={assign({}, this.props.customStyle, {
-              transform: `translate3d(0, ${y}px, 0) scaleX(${scaleX}) scaleY(${scaleY})`,
-              WebkitTransform: `translate3d(0, ${y}px, 0) scaleX(${scaleX}) scaleY(${scaleY})`,
+            onClick={onClick}
+            customClass={customClass}
+            style={assign({}, customStyle, {
+              transform: `translate3d(${x}px, ${y}px, 0) scaleX(${scaleX}) scaleY(${scaleY})`,
+              WebkitTransform: `translate3d(${x}px, ${y}px, 0) scaleX(${scaleX}) scaleY(${scaleY})`,
               position: 'absolute',
-              width: this.props.width,
-              height: this.props.height
+              width,
+              height
             })} >
             {this.props.children}
           </div>

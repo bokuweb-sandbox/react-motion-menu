@@ -6,21 +6,46 @@ export default class Item extends Component{
   constructor(props) {
     super(props);
     this.state = {sequence: 0};
-    this.params = [
+    const {x, y, direction, distance} = this.props;
+    if (direction !== 'vertical' && direction !== 'horizontal')
+      return console.error("not support this direction!!");
+    this.params = (direction === 'vertical') ? [
       {
         scaleX : spring(0, [1500, 100]),
         scaleY : spring(0, [1500, 100]),
-        y : spring(this.props.y, [1500, 50])
+        x,
+        y : spring(y, [1500, 50])
       },
       {
         scaleX : spring(0.7, [1500, 150]),
         scaleY : spring(1.6, [1500, 150]),
-        y : spring(this.props.y-this.props.distance, [1500, 100])
+        x,
+        y : spring(y+distance, [1500, 100])
       },
       {
         scaleX : spring(1, [1500, 18]),
         scaleY : spring(1, [1500, 18]),
-        y : spring(this.props.y-this.props.distance, [1500, 100])
+        x,
+        y : spring(y+distance, [1500, 100])
+      }
+    ] : [
+      {
+        scaleX : spring(0, [1500, 100]),
+        scaleY : spring(0, [1500, 100]),
+        x : spring(x, [1500, 50]),
+        y
+      },
+      {
+        scaleX : spring(1.6, [1500, 150]),
+        scaleY : spring(0.7, [1500, 150]),
+        x : spring(x+distance, [1500, 100]),
+        y
+      },
+      {
+        scaleX : spring(1, [1500, 18]),
+        scaleY : spring(1, [1500, 18]),
+        x : spring(x+distance, [1500, 100]),
+        y
       }
     ];
   }
@@ -44,16 +69,17 @@ export default class Item extends Component{
   }
 
   render() {
+    const {width, height, customStyle, onClick, customClass, children} = this.props;
     return (
       <Motion style={this.params[this.state.sequence]}>
-        {({scaleX, scaleY, y}) =>
-          <div customClass={this.props.customClass}
-            style={assign({}, this.props.customStyle, {
-              transform: `translate3d(0, ${y}px, 0) scaleX(${scaleX}) scaleY(${scaleY})`,
-              WebkitTransform: `translate3d(0, ${y}px, 0) scaleX(${scaleX}) scaleY(${scaleY})`,
+        {({scaleX, scaleY, x, y}) =>
+          <div customClass={customClass}
+            style={assign({}, customStyle, {
+              transform: `translate3d(${x}px, ${y}px, 0) scaleX(${scaleX}) scaleY(${scaleY})`,
+              WebkitTransform: `translate3d(${x}px, ${y}px, 0) scaleX(${scaleX}) scaleY(${scaleY})`,
               position: 'absolute',
-              width: this.props.width,
-              height: this.props.height
+              width,
+              height,
             })} >
             {this.props.children}
           </div>

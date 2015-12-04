@@ -6,17 +6,7 @@ import Button from './button'
 export default class Menu extends Component{
   constructor(props) {
     super(props);
-    this.state = {
-      itemNumber: 1,
-      status: "idle"
-    };
-  }
-
-  componentDidUpdate() {
-    if(this.state.action === "open")
-      this.refs["item"+this.state.itemNumber].start();
-    else
-      this.refs["item"+this.state.itemNumber].reverse();
+    this.state = {itemNumber: 1, status: "idle"};
   }
 
   open() {
@@ -38,24 +28,28 @@ export default class Menu extends Component{
   _close() {
     this.setState({action: "close"});
     this.refs.button.reverse();
-    for(let i = 1; i < this.state.itemNumber; i++)
+    for(let i = this.state.itemNumber-1; i > 0; i-=1) {
       this.refs["item"+i].reverse();
+    }
   }
 
   _onOpenEnd(name) {
     if(this.state.action !== "open") return;
-    if (this.state.itemNumber < this.props.children.length-1)
+    if (this.state.itemNumber < this.props.children.length) {
+      this.refs["item"+this.state.itemNumber].start();
       return this.setState({itemNumber: this.state.itemNumber+1});
+    }
     if (name === `item${this.props.children.length-1}`)
-      if(this.props.onOpen) this.props.onOpen();
+      if(this.props.onOpen) this.props.onOpen(this.props.name);
   }
 
   _onCloseEnd(name) {
     if(this.state.action === "open") return;
-    if (this.state.itemNumber > 1)
-      return this.setState({itemNumber: this.state.itemNumber-1});
-    if (name === 'item1')
-      if(this.props.onClose) this.props.onClose();
+    if (this.state.itemNumber > 1) {
+      if (name === 'item1')
+        if(this.props.onClose) this.props.onClose(this.props.name);
+      this.setState({itemNumber: this.state.itemNumber-1});
+    }
   }
 
   _onClick() {
@@ -64,6 +58,7 @@ export default class Menu extends Component{
   }
 
   _getItems() {
+    const {x, y, width, height, direction, distance, customStyle} = this.props;
     let button;
     let children;
     [button, ...children] = this.props.children;
@@ -71,27 +66,32 @@ export default class Menu extends Component{
       <Button
         ref="button"
         onClick={this._onClick.bind(this)}
-        customStyle={this.props.customStyle}
-        width={this.props.width}
-        height={this.props.height}
-        y={this.props.y}
+        customStyle={customStyle}
+        width={width}
+        height={height}
+        x={x}
+        y={y}
         key={"button"} >
         {button.props.children}
       </Button>
     ];
-    for(let i = 0; i < this.state.itemNumber; i+=1) {
+    for(let i = 0; i < this.state.itemNumber && i < children.length; i+=1) {
       items.push(
         <Item
+          direction={this.props.direction}
           key={i}
           ref={`item${i+1}`}
           name ={`item${i+1}`}
           onOpenAnimationEnd={this._onOpenEnd.bind(this)}
           onCloseAnimationEnd={this._onCloseEnd.bind(this)}
-          customStyle={this.props.customStyle}
-          width={this.props.width}
-          height={this.props.height}
-          distance={this.props.distance}
-          y={i*-this.props.distance + this.props.y} >
+          customStyle={customStyle}
+          width={width}
+          height={height}
+          x={x}
+          y={y}
+          distance={distance}
+          x={direction === "horizontal" ? i*distance + x : x}
+          y={direction === "vertical" ? i*distance + y : y} >
           {children[i].props.children}
         </Item>
       );
