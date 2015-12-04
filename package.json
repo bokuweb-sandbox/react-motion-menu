@@ -1,39 +1,54 @@
 {
-  "name": "react-sprite-animation",
+  "name": "react-motion-menu",
   "version": "0.1.0",
   "main": "lib/index.js",
   "scripts": {
-    "watch": "npm run watch:lib & npm run watch:example",
-    "watch:lib": "watchify --extension=js -o lib/index.js src/index.js",
     "watch:example": "watchify --extension=js -o example/dist/bundle.js example/src/index.js",
-    "build": "npm run build:lib & npm run build:example",
-    "build:lib": "browserify --extension=js -o lib/index.js src/index.js",
+    "compile": "babel --presets react -d lib/ src/",
     "build:example": "browserify --extension=js -o example/dist/bundle.js example/src/index.js",
+    "prepublish": "npm run compile",
     "test": "karma start"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/bokuweb/react-resizable-box.git"
+    "url": "https://github.com/bokuweb/react-motion-menu.git"
   },
   "keywords": [
     "react",
-    "resize",
-    "resizable",
-    "component"
+    "menu",
+    "motion",
+    "component",
+    "animation"
   ],
   "author": "bokuweb",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/bokuweb/react-resizable-box/issues"
+    "url": "https://github.com/bokuweb/react-motion-menu/issues"
   },
-  "homepage": "https://github.com/bokuweb/react-resizable-box",
+  "homepage": "https://github.com/bokuweb/react-motion-men",
   "peerDependencies": {
     "react": ">=0.14.3",
     "react-dom": ">=0.14.3"
   },
   "devDependencies": {
+    "babel-plugin-espower": "1.0.0",
+    "babel-polyfill": "^6.2.0",
     "babelify": "6.4.0",
     "browserify": "^12.0.1",
+    "espower-babel": "3.3.0",
+    "espower-loader": "1.0.0",
+    "espowerify": "1.0.0",
+    "intelli-espower-loader": "1.0.0",
+    "karma": "0.13.11",
+    "karma-browserify": "4.4.0",
+    "karma-cli": "0.1.1",
+    "karma-mocha": "0.2.0",
+    "karma-phantomjs-launcher": "0.2.1",
+    "mocha": "2.3.3",
+    "phantomjs": "1.9.18",
+    "phantomjs-polyfill": "0.0.1",
+    "power-assert": "1.1.0",
+    "react-addons-test-utils": "0.14.2",
     "watchify": "3.5.0"
   },
   "browserify": {
@@ -42,16 +57,9 @@
     ]
   },
   "dependencies": {
-    "lodash.assign": "^3.2.0",
-    "lodash.some": "^3.2.3",
-    "react": "^0.14.3",
-    "react-dom": "^0.14.3",
     "react-motion": "^0.3.1"
   },
   "files": [
     "lib"
-  ],
-  "directories": {
-    "example": "example"
-  }
+  ]
 }
