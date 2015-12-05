@@ -31,6 +31,7 @@
     "react-dom": ">=0.14.3"
   },
   "devDependencies": {
+    "babel": "^5.8.34",
     "babel-plugin-espower": "1.0.0",
     "babel-polyfill": "^6.2.0",
     "babelify": "6.4.0",
