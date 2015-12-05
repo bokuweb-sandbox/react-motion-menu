@@ -25,7 +25,7 @@ export default class Example extends Component{
     return (
         <div>
         <Menu
-          name="menu2"
+          name="menu1"
           direction="horizontal"
           onOpen={this.handleOnOpen.bind(this)}
           onClose={this.handleOnClose.bind(this)}
@@ -42,31 +42,6 @@ export default class Example extends Component{
           height={50}
           y={500}
           x={-150} >
-          <div><i className={this.state.menu2.isOpen ? "fa fa-times" : "fa fa-bars"}></i></div>
-          <div><i className="fa fa-home"></i></div>
-          <div><i className="fa fa-heart"></i></div>
-          <div><i className="fa fa-wrench"></i></div>
-          <div><i className="fa fa-user"></i></div>
-          <div><i className="fa fa-tags"></i></div>
-        </Menu>
-        <Menu
-          name="menu1"
-          direction="vertical"
-          onOpen={this.handleOnOpen.bind(this)}
-          onClose={this.handleOnClose.bind(this)}
-          customStyle={{
-            color: "#fff",
-            textAlign:"center",
-            lineHeight:"50px",
-            backgroundColor: "#16A085",
-            border: "solid 1px #16A085",
-            borderRadius: "50%"
-          }}
-          distance={80}
-          width={50}
-          height={50}
-          y={500}
-          x={-50} >
           <div><i className={this.state.menu1.isOpen ? "fa fa-times" : "fa fa-bars"}></i></div>
           <div><i className="fa fa-home"></i></div>
           <div><i className="fa fa-heart"></i></div>
@@ -83,6 +58,31 @@ export default class Example extends Component{
             color: "#fff",
             textAlign:"center",
             lineHeight:"50px",
+            backgroundColor: "#16A085",
+            border: "solid 1px #16A085",
+            borderRadius: "50%"
+          }}
+          distance={80}
+          width={50}
+          height={50}
+          y={500}
+          x={-50} >
+          <div><i className={this.state.menu2.isOpen ? "fa fa-times" : "fa fa-bars"}></i></div>
+          <div><i className="fa fa-home"></i></div>
+          <div><i className="fa fa-heart"></i></div>
+          <div><i className="fa fa-wrench"></i></div>
+          <div><i className="fa fa-user"></i></div>
+          <div><i className="fa fa-tags"></i></div>
+        </Menu>
+        <Menu
+          name="menu3"
+          direction="vertical"
+          onOpen={this.handleOnOpen.bind(this)}
+          onClose={this.handleOnClose.bind(this)}
+          customStyle={{
+            color: "#fff",
+            textAlign:"center",
+            lineHeight:"50px",
             backgroundColor: "#34495E",
             border: "solid 1px #34495E",
             borderRadius: "10%"
@@ -92,7 +92,7 @@ export default class Example extends Component{
           height={50}
           y={500}
           x={50} >
-          <div><i className={this.state.menu2.isOpen ? "fa fa-times" : "fa fa-bars"}></i></div>
+          <div><i className={this.state.menu3.isOpen ? "fa fa-times" : "fa fa-bars"}></i></div>
           <div><i className="fa fa-home"></i></div>
           <div><i className="fa fa-heart"></i></div>
           <div><i className="fa fa-wrench"></i></div>
@@ -100,7 +100,7 @@ export default class Example extends Component{
           <div><i className="fa fa-tags"></i></div>
         </Menu>
         <Menu
-          name="menu2"
+          name="menu4"
           direction="horizontal"
           onOpen={this.handleOnOpen.bind(this)}
           onClose={this.handleOnClose.bind(this)}
@@ -117,7 +117,7 @@ export default class Example extends Component{
           height={50}
           y={500}
           x={150} >
-          <div><i className={this.state.menu2.isOpen ? "fa fa-times" : "fa fa-bars"}></i></div>
+          <div><i className={this.state.menu4.isOpen ? "fa fa-times" : "fa fa-bars"}></i></div>
           <div><i className="fa fa-home"></i></div>
           <div><i className="fa fa-heart"></i></div>
           <div><i className="fa fa-wrench"></i></div>
