@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, PropTypes} from 'react';
 import assign from 'react/lib/Object.assign';
 import {Motion, spring} from 'react-motion';
 
@@ -53,4 +53,13 @@ export default class Button extends Component{
       </Motion>
     );
   }
+}
+
+Button.propTypes = {
+  x: PropTypes.number.isRequired,
+  y: PropTypes.number.isRequired,
+  width: PropTypes.number.isRequired,
+  height: PropTypes.number.isRequired,
+  customStyle: PropTypes.object,
+  customClass: PropTypes.string
 }

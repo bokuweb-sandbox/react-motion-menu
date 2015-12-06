@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, PropTypes} from 'react';
 import assign from 'react/lib/Object.assign';
 import {Motion, spring} from 'react-motion';
 
@@ -73,7 +73,7 @@ export default class Item extends Component{
     return (
       <Motion style={this.params[this.state.sequence]}>
         {({scaleX, scaleY, x, y}) =>
-          <div customClass={customClass}
+          <div className={customClass}
             style={assign({}, customStyle, {
               transform: `translate3d(${x}px, ${y}px, 0) scaleX(${scaleX}) scaleY(${scaleY})`,
               WebkitTransform: `translate3d(${x}px, ${y}px, 0) scaleX(${scaleX}) scaleY(${scaleY})`,
@@ -87,4 +87,17 @@ export default class Item extends Component{
       </Motion>
     );
   }
+}
+
+Item.propTypes = {
+  x: PropTypes.number.isRequired,
+  y: PropTypes.number.isRequired,
+  direction: PropTypes.string.isRequired,
+  distance: PropTypes.number.isRequired,
+  width: PropTypes.number.isRequired,
+  height: PropTypes.number.isRequired,
+  onOpenAnimationEnd: PropTypes.func,
+  onCloseAnimationEnd: PropTypes.func,
+  customStyle: PropTypes.object,
+  customClass: PropTypes.string
 }
