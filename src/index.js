@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, PropTypes} from 'react';
 import {Motion, spring} from 'react-motion';
 import Item from './item'
 import Button from './button'
@@ -106,4 +106,18 @@ export default class Menu extends Component{
       </div>
     );
   }
+}
+
+Menu.propTypes = {
+  x: PropTypes.number.isRequired,
+  y: PropTypes.number.isRequired,
+  direction: PropTypes.string.isRequired,
+  distance: PropTypes.number.isRequired,
+  width: PropTypes.number.isRequired,
+  height: PropTypes.number.isRequired,
+  onClick: PropTypes.func,
+  onAnimationEnd: PropTypes.func,
+  onCloseAnimationEnd: PropTypes.func,
+  customStyle: PropTypes.object,
+  customClass: PropTypes.string
 }
