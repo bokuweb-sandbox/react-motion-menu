@@ -1,6 +1,6 @@
 # ![](https://github.com/bokuweb/react-motion-menu/blob/master/example/logo.png)
 
-Resizable component for React.
+Motion menu component for React.
 
 [![Build Status](https://travis-ci.org/bokuweb/react-motion-menu.svg?branch=master)](https://travis-ci.org/bokuweb/react-motion-menu)
 [![Code Climate](https://codeclimate.com/github/bokuweb/react-motion-menu/badges/gpa.svg)](https://codeclimate.com/github/bokuweb/react-motion-menu)
