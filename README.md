@@ -1,4 +1,4 @@
-# react-motion-menu
+# ![](https://github.com/bokuweb/react-motion-menu/blob/master/example/logo.png)
 
 Resizable component for React.
 
