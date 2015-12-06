@@ -1,15 +1,15 @@
-# react-resizable-box
+# react-motion-menu
 
 Resizable component for React.
 
-[![Build Status](https://travis-ci.org/bokuweb/react-resizable-box.svg)](https://travis-ci.org/bokuweb/react-resizable-box)
-[![Code Climate](https://codeclimate.com/github/bokuweb/react-resizable-box/badges/gpa.svg)](https://codeclimate.com/github/bokuweb/react-resizable-box)
-[![License](http://img.shields.io/npm/l/object.assign.svg)](https://github.com/bokuweb/react-resizable-box#license)
+[![Build Status](https://travis-ci.org/bokuweb/react-motion-menu.svg?branch=master)](https://travis-ci.org/bokuweb/react-motion-menu)
+[![Code Climate](https://codeclimate.com/github/bokuweb/react-motion-menu/badges/gpa.svg)](https://codeclimate.com/github/bokuweb/react-motion-menu)
+[![License](http://img.shields.io/npm/l/object.assign.svg)](https://github.com/bokuweb/react-motion-menu#license)
 
 ## Demo
 
-![screenshot](https://github.com/bokuweb/react-resizable-box/blob/master/docs/screenshot.gif?raw=true)
-See demo: [http://bokuweb.github.io/react-resizable-box/example/](http://bokuweb.github.io/react-resizable-box/example/)
+
+See demo: [http://bokuweb.github.io/react-motion-menu/example/](http://bokuweb.github.io/react-motion-menu/example/)
 
 ## Important Note
 
