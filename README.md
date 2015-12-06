@@ -8,6 +8,7 @@ Resizable component for React.
 
 ## Demo
 
+![screenshot](https://github.com/bokuweb/react-motion-menu/blob/master/example/screenshot.gif?raw=true)
 
 See demo: [http://bokuweb.github.io/react-motion-menu/example/](http://bokuweb.github.io/react-motion-menu/example/)
 
@@ -26,65 +27,53 @@ npm i react-resizable-box
 ### Basic
 
 ``` javascript
-<Resizable customClass="item"
-           width={320}
-           height={200}>
-  Basic Sample
-</Resizable>
+  <Menu
+    distance={80}
+    width={50}
+    height={50}
+    y={500}
+    x={100} >
+    <i className="bars"></i>  // button
+    <i className="home"></i>  // menu item1
+    <i className="heart"></i> // menu item2
+  </Menu>
 ```
 
-### With min/max width/height
-
-``` javascript
-<Resizable customClass="item"
-           width={320}
-           height={200}
-           minWidth={160}
-           minHeight={160}
-           maxWidth={480}
-           maxHeight={480} >
-  min size is 160x160, max size is 480px x 480px.
-</Resizable>
-```
 ## Properties
 
 #### width {number}
 
-The default width of the resizable box.   
+The width of the menu item and button.   
 
 #### height {number}
 
-The default height of the resizable box.   
+The height of the menu item and button.   
 
-#### minWidth {number}
+#### x {number}
 
-The minimum width of the resizable box.
+The position x of the menu button.
 
-#### minHeight {number}
+#### y {number}
 
-The minimum height of the resizable box.
+The position y of the menu button.
 
-#### maxWidth {number}
+#### direction {string}
 
-The maximum width of the resizable box.
+Menu opening and closing direction.
+Please set 'horizontal' or 'vertical'.
 
-#### maxHeight {number}
+#### distance {number}
 
-The maximum height of the resizable box.
+Distance between items.
+Opening the opposite direction, if set minus value.
 
 #### customClass {string}
 
-The css class set on the resizable box node.
+The css class set menu item and button. 
 
 #### customStyle {object}
 
-The css style set on the resizable box node.
-
-#### isResizable {object}
-
-The permission of x, y, xy direction resizing.   
-If omitted, x, y, xy direction resizing is enabled.    
-If you want to permit only x direction resizing, set `{x:true, y:false, xy:false}`. 
+The css style set on themenu item and button. 
 
 #### onClick {func}
 
@@ -94,28 +83,11 @@ Callback called on resizable box clicked.
 
 Callback called on resizable box touched.
 
-#### onDoubleClick {func}
-
-Callback called on resizable box double clicked.
-
-#### onResizeStart {func}
-
-Callback called on resize start.   
-Receives the resize direction as argument.
-
-#### onResize {func}
-
-Callback called on resizing.   
-Receives the box size `{width, height}` as argument.
-
-#### onResizeStop {func}
-
-Callback called on resize stop.
 
 ## Test
 
 ``` sh
-npm test
+npm t
 ```
 
 ## License
