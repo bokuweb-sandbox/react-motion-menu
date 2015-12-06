@@ -11,18 +11,19 @@ expect.extend(expectJSX);
 
 describe('Item Component test', () => {
   let renderer = createRenderer();
+  console.log(renderer);
   it ('Should Item rendered Motion component with initial state value', (done) => {
 
-    renderer.render(<Item direction='vertical' x={100} y={200} distance={50} />)
+    renderer.render(<Item direction='vertical' x={100} y={100} />)
     const actualElement = renderer.getRenderOutput();
     let expectedElement = (
-      <Motion style={{scaleX: {config: [1500, 100], val: 0}, scaleY: {config: [1500, 100], val: 0}, x: 100, y: {config: [1500, 50], val: 200}}} />
+      <Motion style={{scaleX: {config: [1500, 100], val: 0}, scaleY: {config: [1500, 100], val: 0}, x: 100, y: {config: [1500, 50], val: 100}}} />
     );
     expect(actualElement).toEqualJSX(expectedElement);
     done();
   });
 
-  it ('Should Item rendered Motion component with 2nd and 3rd state value with vertical, when call start()', (done) => {
+  it ('Should Item rendered Motion component with expected value, when set vertical and call start()', (done) => {
     renderer.render(<Item  direction='vertical' x={100} y={200} distance={50} />);
     renderer._instance._instance.start()
     setTimeout(() => {
@@ -42,15 +43,49 @@ describe('Item Component test', () => {
     }, 100);
   });
 
-  /*
-  it ('Should call onAnimationEnd callback, when call start()', (done) => {
-    const onAnimationEnd = () => {
-      console.log('animation end');
+  it ('Should Item rendered Motion component with expected value, when set vertical and call start()', (done) => {
+    renderer.render(<Item  direction='horizontal' x={100} y={200} distance={50} />);
+    renderer._instance._instance.start()
+    setTimeout(() => {
+      const actualElement = renderer.getRenderOutput();
+      let expectedElement = (
+          <Motion style={{scaleX: {config: [1500, 150], val: 1.6}, scaleY: {config: [1500, 150], val: 0.7}, y: 200, x: {config: [1500, 100], val: 150}}} />
+      );
+      expect(actualElement).toEqualJSX(expectedElement);
+    }, 60);
+    setTimeout(() => {
+      const actualElement = renderer.getRenderOutput();
+      let expectedElement = (
+          <Motion style={{scaleX: {config: [1500, 18], val: 1}, scaleY: {config: [1500, 18], val: 1}, y: 200, x: {config: [1500, 100], val: 150}}} />
+      );
+      expect(actualElement).toEqualJSX(expectedElement);
+      done();
+    }, 100);
+  });
+
+  it ('Should call onOpenAnimationEnd callback, when call start()', (done) => {
+    const onOpenAnimationEnd = () => {
+      console.log('open animation end');
       done();
     }
-    renderer.render(<Item  direction='vertical' x={100} y={200} distance={50} onAnimationEnd={onAnimationEnd}/>);
+    renderer.render(<Item  direction='vertical' x={100} y={200} distance={50} onOpenAnimationEnd={onOpenAnimationEnd}/>);
     renderer._instance._instance.start();
-  });*/
+  });
+
+  it ('Should call onCloseAnimationEnd callback, when call reverse()', (done) => {
+    const onOpenAnimationEnd = () => {
+      console.log('open animation end');
+      renderer._instance._instance.reverse();
+    };
+    const onCloseAnimationEnd = () => {
+      console.log('close animation end');
+      done();
+    };
+    renderer.render(<Item direction='vertical' x={100} y={200} distance={50}
+                      onOpenAnimationEnd={onOpenAnimationEnd}
+                      onCloseAnimationEnd={onCloseAnimationEnd} />);
+    renderer._instance._instance.start();
+  });
 
   afterEach(done => {
     renderer = null;
