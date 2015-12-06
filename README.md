@@ -1,4 +1,4 @@
-# ![](https://github.com/bokuweb/react-motion-menu/blob/master/example/logo.png)
+# ![](https://raw.githubusercontent.com/bokuweb/react-motion-menu/master/example/logo.png)
 
 Motion menu component for React.
 
