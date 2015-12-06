@@ -1,4 +1,4 @@
-# react-resizable-box
+# react-motion-menu
 
 Resizable component for React.
 
@@ -8,8 +8,8 @@ Resizable component for React.
 
 ## Demo
 
-![screenshot](https://github.com/bokuweb/react-resizable-box/blob/master/docs/screenshot.gif?raw=true)
-See demo: [http://bokuweb.github.io/react-resizable-box/example/](http://bokuweb.github.io/react-resizable-box/example/)
+
+See demo: [http://bokuweb.github.io/react-motion-menu/example/](http://bokuweb.github.io/react-motion-menu/example/)
 
 ## Important Note
 
