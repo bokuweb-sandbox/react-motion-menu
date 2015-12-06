@@ -47,7 +47,6 @@ export default class Example extends Component{
           <div><i className="fa fa-heart"></i></div>
           <div><i className="fa fa-wrench"></i></div>
           <div><i className="fa fa-user"></i></div>
-          <div><i className="fa fa-tags"></i></div>
         </Menu>
         <Menu
           name="menu2"
@@ -72,7 +71,6 @@ export default class Example extends Component{
           <div><i className="fa fa-heart"></i></div>
           <div><i className="fa fa-wrench"></i></div>
           <div><i className="fa fa-user"></i></div>
-          <div><i className="fa fa-tags"></i></div>
         </Menu>
         <Menu
           name="menu3"
@@ -97,7 +95,6 @@ export default class Example extends Component{
           <div><i className="fa fa-heart"></i></div>
           <div><i className="fa fa-wrench"></i></div>
           <div><i className="fa fa-user"></i></div>
-          <div><i className="fa fa-tags"></i></div>
         </Menu>
         <Menu
           name="menu4"
@@ -122,7 +119,6 @@ export default class Example extends Component{
           <div><i className="fa fa-heart"></i></div>
           <div><i className="fa fa-wrench"></i></div>
           <div><i className="fa fa-user"></i></div>
-          <div><i className="fa fa-tags"></i></div>
         </Menu>
       </div>
     );
