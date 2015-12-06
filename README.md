@@ -19,7 +19,7 @@ This is an alpha release. Use with caution and hope.
 ## Installation
 
 ```sh
-npm i react-resizable-box
+npm i react-motion-menu
 ```
 
 ## Overview
