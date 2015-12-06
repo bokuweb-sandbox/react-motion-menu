@@ -1,14 +1,26 @@
-import assert from 'power-assert';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import TestUtils from 'react-addons-test-utils';
+import {Motion} from 'react-motion';
+import TestUtils, {createRenderer} from 'react-addons-test-utils';
 import Button from '../src/button';
+import expect from 'expect';
+import expectJSX from 'expect-jsx';
+
+expect.extend(expectJSX);
 
 describe('Button Component test', () => {
-  it ('Should button text is show comment, when not oepned', (done) => {
+  const renderer = createRenderer();
+  it ('Should button rendered Motion component witth initial value', (done) => {
     const button = TestUtils.renderIntoDocument(<Button />);
-    //const div = TestUtils.scryRenderedDOMComponentsWithTag(button, 'div');
-    //assert.equal(div[0].textContent, 'コメントを見る')
+    renderer.render(
+      <Button />
+    )
+    const onClick = () => console.log("onclick");
+    const actualElement = renderer.getRenderOutput();
+    let expectedElement = (
+      <Motion style={{scaleX: {config: [1500, 10], val: 1}, scaleY: {config: [1500, 10], val: 1}}} />
+    );
+    expect(actualElement).toEqualJSX(expectedElement);
     done();
   });
 
