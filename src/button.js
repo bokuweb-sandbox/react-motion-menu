@@ -39,7 +39,7 @@ export default class Button extends Component{
         {({scaleX, scaleY}) =>
           <div
             onClick={onClick}
-            customClass={customClass}
+            className={customClass}
             style={assign({}, customStyle, {
               transform: `translate3d(${x}px, ${y}px, 0) scaleX(${scaleX}) scaleY(${scaleY})`,
               WebkitTransform: `translate3d(${x}px, ${y}px, 0) scaleX(${scaleX}) scaleY(${scaleY})`,

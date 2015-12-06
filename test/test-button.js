@@ -54,6 +54,13 @@ describe('Button Component test', () => {
     TestUtils.Simulate.click(ReactDOM.findDOMNode(div[0]));
   });
 
+  it ('Should customclass added to button component', (done) => {
+    const button = TestUtils.renderIntoDocument(<Button customClass={'dummy-class'} />);
+    const div = TestUtils.scryRenderedDOMComponentsWithTag(button, 'div');
+    assert.equal(div[0].className, 'dummy-class');
+    done();
+  });
+
   afterEach( done => {
     ReactDOM.unmountComponentAtNode(document.body);
     document.body.innerHTML = "";
