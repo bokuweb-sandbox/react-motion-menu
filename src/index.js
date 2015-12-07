@@ -87,8 +87,6 @@ export default class Menu extends Component{
           customStyle={customStyle}
           width={width}
           height={height}
-          x={x}
-          y={y}
           distance={distance}
           x={direction === "horizontal" ? i*distance + x : x}
           y={direction === "vertical" ? i*distance + y : y} >
