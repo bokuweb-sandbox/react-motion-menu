@@ -5,6 +5,7 @@ import {Motion, spring} from 'react-motion';
 export default class Item extends Component{
   constructor(props) {
     super(props);
+    this.timerIds = [null, null, null];
     this.state = {sequence: 0};
     const {x, y, direction, distance} = this.props;
     if (direction !== 'vertical' && direction !== 'horizontal')
@@ -51,20 +52,25 @@ export default class Item extends Component{
   }
 
   start() {
-    setTimeout(() => {
+    this.timerIds[1] = setTimeout(() => {
       this.setState({sequence: 1 });
+      this.timerIds[1] = null;
     }, 60);
 
-    setTimeout(() => {
+    this.timerIds[2] = setTimeout(() => {
       this.setState({sequence: 2 });
+      this.timerIds[2] = null;
       if (this.props.onOpenAnimationEnd) this.props.onOpenAnimationEnd(this.props.name);
     }, 80);
   }
 
   reverse() {
-    setTimeout(() => {
+    clearTimeout(this.timerIds[1]);
+    clearTimeout(this.timerIds[2]);
+    this.timerIds[0] = setTimeout(() => {
       if (this.props.onCloseAnimationEnd) this.props.onCloseAnimationEnd(this.props.name);
-    }, 80);
+      this.timerIds[0] = null;
+    }, 100);
     this.setState({sequence: 0});
   }
 
