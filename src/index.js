@@ -1,7 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import {Motion, spring} from 'react-motion';
-import Item from './item'
-import Button from './button'
+import Item from './item';
+import Button from './button';
 
 export default class Menu extends Component{
   constructor(props) {
