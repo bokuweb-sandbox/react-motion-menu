@@ -34,8 +34,8 @@ npm i react-motion-menu
     y={500}
     x={100} >
     <i className="bars"></i>  // button
-    <i className="home"></i>  // menu item1
-    <i className="heart"></i> // menu item2
+    <a href="http://google.com"><i className="home"></i></a>  // menu item1
+    <a href="http://google.com"><i className="heart"></i></a> // menu item2
   </Menu>
 ```
 
