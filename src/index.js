@@ -90,7 +90,7 @@ export default class Menu extends Component{
           distance={distance}
           x={direction === "horizontal" ? i*distance + x : x}
           y={direction === "vertical" ? i*distance + y : y} >
-          {children[i].props.children}
+          {children[i]}
         </Item>
       );
     }
