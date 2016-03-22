@@ -26,16 +26,42 @@ npm i react-motion-menu
 ### Basic
 
 ``` javascript
-  <Menu
-    distance={80}
-    width={50}
-    height={50}
-    y={500}
-    x={100} >
-    <i className="bars"></i>  // button
-    <a href="http://google.com"><i className="home"></i></a>  // menu item1
-    <a href="http://google.com"><i className="heart"></i></a> // menu item2
-  </Menu>
+import React from 'react';
+import ReactDOM from 'react-dom'
+import Menu from 'react-motion-menu'
+
+class Example extends React.Component{
+  render() {
+    return (
+        <div>
+          <Menu
+            direction="horizontal"
+            distance={80}
+            width={50}
+            height={50}
+            y={500}
+            x={100}
+            customStyle={{
+              color: "#fff",
+              textAlign:"center",
+              lineHeight:"50px",
+              backgroundColor: "#16A085",
+              border: "solid 1px #16A085",
+              borderRadius: "50%"
+            }}>
+            <i className="bars"></i>  // button
+            <a href="http://google.com"><i className="home"></i></a>  // menu item1
+            <a href="http://google.com"><i className="heart"></i></a> // menu item2
+          </Menu>
+        </div>
+      );
+}
+}
+ReactDOM.render(
+<Example />,
+document.getElementById('app')
+);
+
 ```
 
 ## Properties
@@ -68,11 +94,11 @@ Opening the opposite direction, if set minus value.
 
 #### customClass {string}
 
-The css class set menu item and button. 
+The css class set menu item and button.
 
 #### customStyle {object}
 
-The css style set on themenu item and button. 
+The css style set on themenu item and button.
 
 #### onClick {func}
 
