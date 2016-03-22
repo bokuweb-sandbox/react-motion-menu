@@ -26,6 +26,8 @@ npm i react-motion-menu
 ### Basic
 
 ``` javascript
+import Menu from 'react-motion-menu'
+
   <Menu
     distance={80}
     width={50}
@@ -68,11 +70,11 @@ Opening the opposite direction, if set minus value.
 
 #### customClass {string}
 
-The css class set menu item and button. 
+The css class set menu item and button.
 
 #### customStyle {object}
 
-The css style set on themenu item and button. 
+The css style set on themenu item and button.
 
 #### onClick {func}
 
