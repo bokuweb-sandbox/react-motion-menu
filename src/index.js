@@ -88,8 +88,8 @@ export default class Menu extends Component{
           width={width}
           height={height}
           distance={distance}
-          x={direction === "horizontal" ? i*distance + x : x}
-          y={direction === "vertical" ? i*distance + y : y} >
+          x={direction === "horizontal" ? (i+1)*distance + x : x}
+          y={direction === "vertical" ? (i+1)*distance + y : y} >
           {children[i]}
         </Item>
       );
