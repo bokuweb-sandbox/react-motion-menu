@@ -75,10 +75,10 @@ export default class Item extends Component{
   }
 
   render() {
-    const {width, height, customStyle, onClick, customClass, children} = this.props;
+    const {x, y, width, height, customStyle, onClick, customClass, children} = this.props;
     return (
       <Motion style={this.params[this.state.sequence]}>
-        {({scaleX, scaleY, x, y}) =>
+        {({scaleX, scaleY}) =>
           <div className={customClass}
             style={assign({}, customStyle, {
               transform: `translate3d(${x}px, ${y}px, 0) scaleX(${scaleX}) scaleY(${scaleY})`,
