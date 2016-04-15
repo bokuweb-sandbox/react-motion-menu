@@ -1,5 +1,4 @@
 import React, {Component, PropTypes} from 'react';
-import assign from 'react/lib/Object.assign';
 import {Motion, spring} from 'react-motion';
 
 export default class Button extends Component{
@@ -40,7 +39,7 @@ export default class Button extends Component{
           <div
             onClick={onClick}
             className={customClass}
-            style={assign({}, customStyle, {
+            style={Object.assign({}, customStyle, {
               transform: `translate3d(${x}px, ${y}px, 0) scaleX(${scaleX}) scaleY(${scaleY})`,
               WebkitTransform: `translate3d(${x}px, ${y}px, 0) scaleX(${scaleX}) scaleY(${scaleY})`,
               position: 'absolute',
