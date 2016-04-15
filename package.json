@@ -27,8 +27,8 @@
   },
   "homepage": "https://github.com/bokuweb/react-motion-menu",
   "peerDependencies": {
-    "react": ">=0.14.3",
-    "react-dom": ">=0.14.3"
+    "react": ">=0.14.0",
+    "react-dom": ">=0.14.0"
   },
   "devDependencies": {
     "babel": "^5.8.34",
@@ -51,7 +51,7 @@
     "phantomjs": "1.9.18",
     "phantomjs-polyfill": "0.0.1",
     "power-assert": "1.1.0",
-    "react-addons-test-utils": "0.14.2",
+    "react-addons-test-utils": "^15.0.1",
     "watchify": "3.5.0"
   },
   "browserify": {
