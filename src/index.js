@@ -58,7 +58,7 @@ export default class Menu extends Component{
   }
 
   _getItems() {
-    const {x, y, width, height, direction, distance, customStyle} = this.props;
+    const {x, y, width, height, direction, distance, customStyle, customClass} = this.props;
     let button;
     let children;
     [button, ...children] = this.props.children;
@@ -67,6 +67,7 @@ export default class Menu extends Component{
         ref="button"
         onClick={this._onClick.bind(this)}
         customStyle={customStyle}
+        customClass={customClass}
         width={width}
         height={height}
         x={x}
@@ -85,6 +86,7 @@ export default class Menu extends Component{
           onOpenAnimationEnd={this._onOpenEnd.bind(this)}
           onCloseAnimationEnd={this._onCloseEnd.bind(this)}
           customStyle={customStyle}
+          customClass={customClass}
           width={width}
           height={height}
           distance={distance}
