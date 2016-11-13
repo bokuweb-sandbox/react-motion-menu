@@ -104,7 +104,6 @@ export default class Menu extends Component{
           positiony = (i+1)*distance + y;
         }
       }
-      console.log(positionx);
       items.push(
         <Item
           direction={this.props.direction}

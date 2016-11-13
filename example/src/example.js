@@ -74,7 +74,7 @@ export default class Example extends Component{
           <div><i className="fa fa-wrench"></i></div>
           <div><i className="fa fa-user"></i></div>
         </Menu>
-        {/*<Menu
+        <Menu
           name="menu3"
           direction="vertical"
           onOpen={this.handleOnOpen.bind(this)}
@@ -121,7 +121,7 @@ export default class Example extends Component{
           <div><i className="fa fa-heart"></i></div>
           <div><i className="fa fa-wrench"></i></div>
           <div><i className="fa fa-user"></i></div>
-        </Menu> */}
+        </Menu>
       </div>
     );
   }
