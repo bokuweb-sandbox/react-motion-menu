@@ -27,7 +27,6 @@ export default class Example extends Component{
         <Menu
           name="menu1"
           direction="horizontal"
-          orientation="both"
           onOpen={this.handleOnOpen.bind(this)}
           onClose={this.handleOnClose.bind(this)}
           customStyle={{
@@ -38,11 +37,11 @@ export default class Example extends Component{
             border: "solid 1px #E74C3C",
             borderRadius: "40%"
           }}
-          distance={80}
+          distance={-80}
           width={50}
           height={50}
           y={500}
-          x={150} >
+          x={-150} >
           <div><i className={this.state.menu1.isOpen ? "fa fa-times" : "fa fa-bars"}></i></div>
           <div><i className="fa fa-home"></i></div>
           <div><i className="fa fa-heart"></i></div>
