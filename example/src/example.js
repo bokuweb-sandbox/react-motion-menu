@@ -51,6 +51,7 @@ export default class Example extends Component{
         <Menu
           name="menu2"
           direction="vertical"
+          orientation="both"
           onOpen={this.handleOnOpen.bind(this)}
           onClose={this.handleOnClose.bind(this)}
           customStyle={{

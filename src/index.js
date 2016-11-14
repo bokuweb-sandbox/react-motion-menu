@@ -58,7 +58,7 @@ export default class Menu extends Component{
   }
 
   _getItems() {
-    const {x, y, width, height, direction, distance, customStyle, customClass} = this.props;
+    const {x, y, width, height, direction, distance, customStyle, customClass, orientation} = this.props;
     let button;
     let children;
     [button, ...children] = this.props.children;
@@ -76,7 +76,34 @@ export default class Menu extends Component{
         {button.props.children}
       </Button>
     ];
+    let oddx = x;
+    let evenx = x;
+    let eveny = y;
+    let oddy = y;
     for(let i = 0; i < this.state.itemNumber && i < children.length; i+=1) {
+      let positionx = null;
+      let positiony = null;
+      if (orientation === "both") {
+        if (direction === "horizontal") {
+          if (i%2 === 0) {
+            positionx = evenx + distance; 
+          } else {
+            positionx = oddx - distance;
+          }
+        } else {
+          if (i%2 === 0) {
+            positiony = eveny + distance; 
+          } else {
+            positiony = oddy - distance;
+          }          
+        }
+      } else {
+        if (direction === "horizontal") {
+          positionx = (i+1)*distance + x;
+        } else {
+          positiony = (i+1)*distance + y;
+        }
+      }
       items.push(
         <Item
           direction={this.props.direction}
@@ -90,11 +117,27 @@ export default class Menu extends Component{
           width={width}
           height={height}
           distance={distance}
-          x={direction === "horizontal" ? (i+1)*distance + x : x}
-          y={direction === "vertical" ? (i+1)*distance + y : y} >
+          x={direction === "horizontal" ? positionx : x}
+          y={direction === "vertical" ? positiony : y} >
           {children[i]}
         </Item>
       );
+      if (orientation === "both") {
+        if (direction === "horizontal") {
+          if (i%2 === 0) {
+            evenx = positionx;
+          } else {
+            oddx = positionx;
+          }  
+        } else {
+          if (i%2 === 0) {
+            eveny = positiony;
+          } else {
+            oddy = positiony;
+          }            
+        }
+
+      }
     }
     return items;
   }
