@@ -1,7 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import {Motion, spring} from 'react-motion';
 
-export default class Button extends Component{
+export default class MenuButton extends Component{
   constructor(props) {
     super(props);
     this.state = {sequence: 0};
@@ -54,7 +54,7 @@ export default class Button extends Component{
   }
 }
 
-Button.propTypes = {
+MenuButton.propTypes = {
   x: PropTypes.number.isRequired,
   y: PropTypes.number.isRequired,
   width: PropTypes.number.isRequired,
