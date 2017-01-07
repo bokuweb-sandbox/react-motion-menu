@@ -11,40 +11,40 @@ export default class Item extends Component{
       return console.error("not support this direction!!");
     this.params = (direction === 'vertical') ? [
       {
-        scaleX : spring(0, [1500, 100]),
-        scaleY : spring(0, [1500, 100]),
+        scaleX : spring(0, { stiffness: 1500, damping: 100 }),
+        scaleY : spring(0, { stiffness: 1500, damping: 100 }),
         x,
-        y : spring(y, [1500, 50])
+        y : spring(y, { stiffness: 1500, damping: 50 })
       },
       {
-        scaleX : spring(0.7, [1500, 150]),
-        scaleY : spring(1.6, [1500, 150]),
+        scaleX : spring(0.7, { stiffness: 1500, damping: 150 }),
+        scaleY : spring(1.6, { stiffness: 1500, damping: 150 }),
         x,
-        y : spring(y+distance, [1500, 100])
+        y : spring(y+distance, { stiffness: 1500, damping: 100 }),
       },
       {
-        scaleX : spring(1, [1500, 18]),
-        scaleY : spring(1, [1500, 18]),
+        scaleX : spring(1, { stiffness: 1500, damping: 18 }),
+        scaleY : spring(1, { stiffness: 1500, damping: 18 }),
         x,
-        y : spring(y+distance, [1500, 100])
+        y : spring(y+distance,  { stiffness: 1500, damping: 100 }),
       }
     ] : [
       {
-        scaleX : spring(0, [1500, 100]),
-        scaleY : spring(0, [1500, 100]),
-        x : spring(x, [1500, 50]),
+        scaleX : spring(0, { stiffness: 1500, damping: 100 }),
+        scaleY : spring(0, { stiffness: 1500, damping: 100 }),
+        x : spring(x, { stiffness: 1500, damping: 50 }),
         y
       },
       {
-        scaleX : spring(1.6, [1500, 150]),
-        scaleY : spring(0.7, [1500, 150]),
-        x : spring(x+distance, [1500, 100]),
+        scaleX : spring(1.6, { stiffness: 1500, damping: 150 }),
+        scaleY : spring(0.7, { stiffness: 1500, damping: 150 }),
+        x : spring(x+distance, { stiffness: 1500, damping: 100 }),
         y
       },
       {
-        scaleX : spring(1, [1500, 18]),
-        scaleY : spring(1, [1500, 18]),
-        x : spring(x+distance, [1500, 100]),
+        scaleX : spring(1, { stiffness: 1500, damping: 18 }),
+        scaleY : spring(1, { stiffness: 1500, damping: 18 }),
+        x : spring(x+distance, { stiffness: 1500, damping: 100 }),
         y
       }
     ];
