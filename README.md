@@ -4,7 +4,7 @@ Animation menu component for React.
 
 [![Build Status](https://img.shields.io/travis/bokuweb/react-motion-menu.svg?style=flat-square)](https://travis-ci.org/bokuweb/react-motion-menu)
 [![Version](https://img.shields.io/npm/v/react-motion-menu.svg?style=flat-square)](https://www.npmjs.com/package/react-motion-menu)
-[![License](http://img.shields.io/npm/l/object.assign.svg?style=flast-square)](https://github.com/bokuweb/react-motion-menu#license)
+[![License](http://img.shields.io/npm/l/object.assign.svg?style=flat-square)](https://github.com/bokuweb/react-motion-menu#license)
 
 ## Demo
 
