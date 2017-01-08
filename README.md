@@ -3,6 +3,7 @@
 Animation menu component for React.
 
 [![Build Status](https://img.shields.io/travis/bokuweb/react-motion-menu.svg?style=flat-square)](https://travis-ci.org/bokuweb/react-motion-menu)
+[![Version](https://img.shields.io/npm/v/react-motion-menu.svg?style=flat-square)](https://www.npmjs.com/package/react-motion-menu)
 [![License](http://img.shields.io/npm/l/object.assign.svg?style=flast-square)](https://github.com/bokuweb/react-motion-menu#license)
 
 ## Demo
@@ -42,18 +43,6 @@ export default () => (
     </div>
     <div className="button">
       <i className="fa fa-home" />
-    </div>
-    <div className="button">
-      <i className="fa fa-flash" />
-    </div>
-    <div className="button">
-      <i className="fa fa-heart" />
-    </div>
-    <div className="button">
-      <i className="fa fa-globe" />
-    </div>
-    <div className="button">
-      <i className="fa fa-plug" />
     </div>
   </MotionMenu>
 );
