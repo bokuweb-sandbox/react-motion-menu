@@ -3,10 +3,11 @@
   "version": "0.2.2",
   "main": "lib/index.js",
   "scripts": {
-    "watch:example": "watchify --extension=js -o example/dist/bundle.js example/src/index.js",
+    "watch:example": "watchify --extension=js -o docs/dist/bundle.js docs/src/index.js",
     "compile": "babel --presets react -d lib/ src/",
-    "build:example": "browserify --extension=js -o example/dist/bundle.js example/src/index.js",
-    "prepublish": "npm run compile",
+    "build:example": "browserify --extension=js -o docs/dist/bundle.js docs/src/index.js",
+    "lint": "eslint ./src",
+    "styleguide": "styleguidist build",
     "test": "karma start"
   },
   "repository": {

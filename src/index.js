@@ -71,7 +71,7 @@ export default class MotionMenu extends Component {
 
   getDistance(i) {
     return this.props.wing
-      ? (parseInt(i / 2, 10) + 1) * this.props.margin * ((-1) ** (i % 2))
+      ? (parseInt(i / 2, 10) + 1) * this.props.margin * ((i % 2) || -1)
       : this.props.margin * (i + 1);
   }
 

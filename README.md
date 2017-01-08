@@ -1,4 +1,4 @@
-# ![](https://raw.githubusercontent.com/bokuweb/react-motion-menu/master/example/logo.png)
+# react-motion-menu
 
 Motion menu component for React.
 
@@ -7,13 +7,10 @@ Motion menu component for React.
 
 ## Demo
 
-![screenshot](https://github.com/bokuweb/react-motion-menu/blob/master/example/screenshot.gif?raw=true)
+![screenshot](https://github.com/bokuweb/react-motion-menu/blob/master/docs/screenshot.gif?raw=true)
 
-See demo: [http://bokuweb.github.io/react-motion-menu/example/](http://bokuweb.github.io/react-motion-menu/example/)
+See demo: [http://bokuweb.github.io/react-motion-menu/](http://bokuweb.github.io/react-motion-menu/)
 
-## Important Note
-
-This is an alpha release. Use with caution and hope.
 
 ## Installation
 
@@ -27,52 +24,29 @@ npm i react-motion-menu
 
 ``` javascript
 import React from 'react';
-import ReactDOM from 'react-dom'
-import Menu from 'react-motion-menu'
+import MotionMenu from '../../src';
 
-class Example extends React.Component{
-  render() {
-    return (
-        <div>
-          <Menu
-            direction="horizontal"
-            distance={80}
-            width={50}
-            height={50}
-            y={500}
-            x={100}
-            customStyle={{
-              color: "#fff",
-              textAlign:"center",
-              lineHeight:"50px",
-              backgroundColor: "#16A085",
-              border: "solid 1px #16A085",
-              borderRadius: "50%"
-            }}>
-            <i className="bars"></i>  // button
-            <a href="http://google.com"><i className="home"></i></a>  // menu item1
-            <a href="http://google.com"><i className="heart"></i></a> // menu item2
-          </Menu>
-        </div>
-      );
-}
-}
-ReactDOM.render(
-<Example />,
-document.getElementById('app')
+export default () => (
+  <MotionMenu
+    type="circle"
+    margin={120}
+    y={0}
+    x={0}
+  >
+    <div className="button"><i className="fa fa-bars" /></div>
+    <div className="button"><i className="fa fa-cogs" /></div>
+    <div className="button"><i className="fa fa-cloud" /></div>
+    <div className="button"><i className="fa fa-home" /></div>
+    <div className="button"><i className="fa fa-flash" /></div>
+    <div className="button"><i className="fa fa-heart" /></div>
+    <div className="button"><i className="fa fa-globe" /></div>
+    <div className="button"><i className="fa fa-plug" /></div>
+  </MotionMenu>
 );
-
 ```
 
 ## Properties
 
-#### width {number}
-
-The width of the menu item and button.   
-
-#### height {number}
-
-The height of the menu item and button.   
 
 #### x {number}
 
@@ -82,32 +56,15 @@ The position x of the menu button.
 
 The position y of the menu button.
 
-#### direction {string}
+#### type {string}
 
 Menu opening and closing direction.
 Please set 'horizontal' or 'vertical'.
 
-#### distance {number}
+#### margin {number}
 
 Distance between items.
 Opening the opposite direction, if set minus value.
-
-#### customClass {string}
-
-The css class set menu item and button.
-
-#### customStyle {object}
-
-The css style set on themenu item and button.
-
-#### onClick {func}
-
-Callback called on resizable box clicked.
-
-#### onTouchStart {func}
-
-Callback called on resizable box touched.
-
 
 ## Test
 
@@ -119,7 +76,7 @@ npm t
 
 The MIT License (MIT)
 
-Copyright (c) 2015 @Bokuweb
+Copyright (c) 2016 @Bokuweb
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
