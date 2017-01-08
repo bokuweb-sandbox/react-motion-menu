@@ -1,9 +1,9 @@
 # react-motion-menu
 
-Motion menu component for React.
+Animation menu component for React.
 
-[![Build Status](https://travis-ci.org/bokuweb/react-motion-menu.svg?branch=master)](https://travis-ci.org/bokuweb/react-motion-menu)
-[![License](http://img.shields.io/npm/l/object.assign.svg)](https://github.com/bokuweb/react-motion-menu#license)
+[![Build Status](https://img.shields.io/travis/bokuweb/react-motion-menu.svg?style=flat-square)](https://travis-ci.org/bokuweb/react-motion-menu)
+[![License](http://img.shields.io/npm/l/object.assign.svg?style=flast-square)](https://github.com/bokuweb/react-motion-menu#license)
 
 ## Demo
 
@@ -30,17 +30,31 @@ export default () => (
   <MotionMenu
     type="circle"
     margin={120}
-    y={0}
-    x={0}
   >
-    <div className="button"><i className="fa fa-bars" /></div>
-    <div className="button"><i className="fa fa-cogs" /></div>
-    <div className="button"><i className="fa fa-cloud" /></div>
-    <div className="button"><i className="fa fa-home" /></div>
-    <div className="button"><i className="fa fa-flash" /></div>
-    <div className="button"><i className="fa fa-heart" /></div>
-    <div className="button"><i className="fa fa-globe" /></div>
-    <div className="button"><i className="fa fa-plug" /></div>
+    <div className="button">
+      <i className="fa fa-bars" />
+    </div>
+    <div className="button">
+      <i className="fa fa-cogs" />
+    </div>
+    <div className="button">
+      <i className="fa fa-cloud" />
+    </div>
+    <div className="button">
+      <i className="fa fa-home" />
+    </div>
+    <div className="button">
+      <i className="fa fa-flash" />
+    </div>
+    <div className="button">
+      <i className="fa fa-heart" />
+    </div>
+    <div className="button">
+      <i className="fa fa-globe" />
+    </div>
+    <div className="button">
+      <i className="fa fa-plug" />
+    </div>
   </MotionMenu>
 );
 ```
@@ -48,23 +62,29 @@ export default () => (
 ## Properties
 
 
-#### x {number}
+#### `x: PropTypes.number`
 
-The position x of the menu button.
+The position `x` of the menu button.
+If ommited, set 0.
 
-#### y {number}
+#### `y: PropTypes.number`
 
-The position y of the menu button.
+The position `y` of the menu button.
+If ommited, set 0.
 
-#### type {string}
+#### `type: PropTypes.oneOf(['vertical', 'horizontal', 'circle'])`
 
-Menu opening and closing direction.
-Please set 'horizontal' or 'vertical'.
+The Menu opening and closing type.
+Please set `horizontal`, `vertical`, `circle`.
 
-#### margin {number}
+#### `margin: PropTypes.number`
 
-Distance between items.
-Opening the opposite direction, if set minus value.
+The `margin` between items or menu button.
+
+#### `wing: PropTypes.bool`
+
+If set `true`, menu opened both side, when `vertical` or `horizontal` type selected.
+
 
 ## Test
 
@@ -76,7 +96,7 @@ npm t
 
 The MIT License (MIT)
 
-Copyright (c) 2016 @Bokuweb
+Copyright (c) 2016 @bokuweb
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
