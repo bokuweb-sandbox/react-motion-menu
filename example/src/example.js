@@ -22,26 +22,18 @@ export default class Example extends Component {
     return (
         <Menu
           name="menu1"
-          direction="horizontal"
+          type="horizontal"
           onOpen={this.handleOnOpen.bind(this)}
           onClose={this.handleOnClose.bind(this)}
-          customStyle={{
-            color: "#fff",
-            textAlign:"center",
-            lineHeight:"50px",
-            backgroundColor: "#E74C3C",
-            border: "solid 1px #E74C3C",
-            borderRadius: "40%",
-          }}
-          distance={-80}
-          width={50}
-          height={50}
+          margin={-80}
           y={500}
           x={-150} >
           <div style={{width: "50px", height: "50px", backgroundColor: "#E74C3C"}}><i className={this.state.menu1.isOpen ? "fa fa-times" : "fa fa-bars"}></i></div>
           <div style={{width: "50px", height: "50px", backgroundColor: "#E74C3C"}}><i className="fa fa-home"></i></div>
           <div style={{width: "50px", height: "50px", backgroundColor: "#E74C3C"}}><i className="fa fa-heart"></i></div>
-          <div><i className="fa fa-user"></i></div>
+          <div style={{width: "50px", height: "50px", backgroundColor: "#E74C3C"}}><i className="fa fa-home"></i></div>
+          <div style={{width: "50px", height: "50px", backgroundColor: "#E74C3C"}}><i className="fa fa-heart"></i></div>
+          <div style={{width: "50px", height: "50px", backgroundColor: "#E74C3C"}}><i className="fa fa-heart"></i></div>
         </Menu>
     );
   }

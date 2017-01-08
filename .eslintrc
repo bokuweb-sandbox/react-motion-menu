@@ -3,5 +3,6 @@
   "parser": "babel-eslint",
   "rules": {
     "react/jsx-filename-extension": [0, { "extensions": [".js", ".jsx"] }],
+    "react/prop-types": [0]
   }
 }

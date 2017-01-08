@@ -1,48 +1,26 @@
 import React, { Component, PropTypes, cloneElement } from 'react';
 import { Motion, spring } from 'react-motion';
 
-const createParams = ({ x, y, direction, distance }) => {
-  const verticalParams = [
-    {
-      scaleX: spring(0, { stiffness: 1500, damping: 100 }),
-      scaleY: spring(0, { stiffness: 1500, damping: 100 }),
-      x,
-      y: spring(y, { stiffness: 1500, damping: 50 }),
-    }, {
-      scaleX: spring(0.7, { stiffness: 1500, damping: 150 }),
-      scaleY: spring(1.6, { stiffness: 1500, damping: 150 }),
-      x,
-      y: spring(y + distance, { stiffness: 1500, damping: 100 }),
-    }, {
-      scaleX: spring(1, { stiffness: 1500, damping: 18 }),
-      scaleY: spring(1, { stiffness: 1500, damping: 18 }),
-      x,
-      y: spring(y + distance, { stiffness: 1500, damping: 100 }),
-    },
-  ];
-
-  const horizontalParams = [
-    {
-      scaleX: spring(0, { stiffness: 1500, damping: 100 }),
-      scaleY: spring(0, { stiffness: 1500, damping: 100 }),
-      x: spring(x, { stiffness: 1500, damping: 50 }),
-      y,
-    },
-    {
-      scaleX: spring(1.6, { stiffness: 1500, damping: 150 }),
-      scaleY: spring(0.7, { stiffness: 1500, damping: 150 }),
-      x: spring(x + distance, { stiffness: 1500, damping: 100 }),
-      y,
-    },
-    {
-      scaleX: spring(1, { stiffness: 1500, damping: 18 }),
-      scaleY: spring(1, { stiffness: 1500, damping: 18 }),
-      x: spring(x + distance, { stiffness: 1500, damping: 100 }),
-      y,
-    },
-  ];
-  return direction === 'vertical' ? verticalParams : horizontalParams;
-};
+const createParams = ({ x, y }) => ([
+  {
+    scaleX: spring(0, { stiffness: 1500, damping: 100 }),
+    scaleY: spring(0, { stiffness: 1500, damping: 100 }),
+    x: spring(x, { stiffness: 1500, damping: 50 }),
+    y: spring(y, { stiffness: 1500, damping: 50 }),
+  },
+  {
+    scaleX: spring(1.6, { stiffness: 1500, damping: 150 }),
+    scaleY: spring(0.7, { stiffness: 1500, damping: 150 }),
+    x: spring(x, { stiffness: 1500, damping: 100 }),
+    y: spring(y, { stiffness: 1500, damping: 100 }),
+  },
+  {
+    scaleX: spring(1, { stiffness: 1500, damping: 18 }),
+    scaleY: spring(1, { stiffness: 1500, damping: 18 }),
+    x: spring(x, { stiffness: 1500, damping: 100 }),
+    y: spring(y, { stiffness: 1500, damping: 100 }),
+  },
+]);
 
 export default class MenuItem extends Component {
 
@@ -50,7 +28,6 @@ export default class MenuItem extends Component {
     x: PropTypes.number.isRequired,
     y: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
-    children: PropTypes.Any,
     onOpenAnimationEnd: PropTypes.func,
     onCloseAnimationEnd: PropTypes.func,
   }

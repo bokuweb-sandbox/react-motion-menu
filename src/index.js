@@ -5,21 +5,18 @@ import MenuButton from './button';
 export default class MotionMenu extends Component {
 
   static propTypes = {
-    direction: PropTypes.oneOf(['horizontal', 'vertical', 'circle']),
+    type: PropTypes.oneOf(['horizontal', 'vertical', 'circle']),
+    wing: PropTypes.bool,
     x: PropTypes.number.isRequired,
     y: PropTypes.number.isRequired,
-    distance: PropTypes.number.isRequired,
-    width: PropTypes.number.isRequired,
-    height: PropTypes.number.isRequired,
+    margin: PropTypes.number.isRequired,
     onClose: PropTypes.func,
     onOpen: PropTypes.func,
-    customStyle: PropTypes.Object,
-    customClass: PropTypes.string,
-    children: PropTypes.Any,
+    className: PropTypes.string,
   }
 
   static defaultProps = {
-    customStyle: {},
+    style: {},
     onClose: () => {},
     onOpen: () => {},
   }
@@ -70,30 +67,49 @@ export default class MotionMenu extends Component {
     }
   }
 
+  getDistance(i) {
+    return this.props.wing
+      ? (parseInt(i / 2, 10) + 1) * this.props.margin * ((-1) ** (i % 2))
+      : this.props.margin * (i + 1);
+  }
+
+  getX(distance, x) {
+    if (this.props.type === 'horizontal') {
+      return distance + x;
+    }
+    return x;
+  }
+
+  getY(distance, y) {
+    if (this.props.type === 'vertical') {
+      return distance + y;
+    }
+    return y;
+  }
 
   getItems() {
-    const { x, y, width, height, direction, distance, customStyle, customClass } = this.props;
+    const { x, y } = this.props;
     return Array.from(Array(this.state.itemNumber).keys())
       .reverse()
-      .map(i =>
-        <MenuItem
-          direction={this.props.direction}
-          key={i}
-          ref={(c) => { this.items[i + 1] = c; }}
-          name={`item${i + 1}`}
-          onOpenAnimationEnd={this.onOpenEnd}
-          onCloseAnimationEnd={this.onCloseEnd}
-          style={customStyle}
-          className={customClass}
-          width={width}
-          height={height}
-          distance={distance}
-          x={direction === 'horizontal' ? ((i + 1) * distance) + x : x}
-          y={direction === 'vertical' ? ((i + 1) * distance) + y : y}
-        >
-          {this.props.children[i + 1]}
-        </MenuItem>,
-      );
+      .map((i) => {
+        const distance = this.getDistance(i);
+        return (
+          <MenuItem
+            direction={this.props.type}
+            key={i}
+            ref={(c) => { this.items[i + 1] = c; }}
+            name={`item${i + 1}`}
+            onOpenAnimationEnd={this.onOpenEnd}
+            onCloseAnimationEnd={this.onCloseEnd}
+            distance={distance}
+            x={this.getX(distance, x)}
+            y={this.getY(distance, y)}
+          >
+            {this.props.children[i + 1]}
+          </MenuItem>
+        );
+      },
+    );
   }
 
   get menuButton() {
@@ -135,9 +151,14 @@ export default class MotionMenu extends Component {
 
   render() {
     return (
-      <div style={{ position: 'relative' }}>
-        {this.menuButton}
-        {this.getItems()}
+      <div
+        style={this.props.style}
+        className={this.props.className}
+      >
+        <div style={{ position: 'relative' }}>
+          {this.menuButton}
+          {this.getItems()}
+        </div>
       </div>
     );
   }
