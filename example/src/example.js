@@ -21,17 +21,18 @@ export default class Example extends Component {
   render() {
     return (
         <Menu
-          name="menu1"
-          type="horizontal"
+          type="circle"
           onOpen={this.handleOnOpen.bind(this)}
           onClose={this.handleOnClose.bind(this)}
-          margin={-80}
+          margin={120}
           y={500}
           x={-150} >
           <div style={{width: "50px", height: "50px", backgroundColor: "#E74C3C"}}><i className={this.state.menu1.isOpen ? "fa fa-times" : "fa fa-bars"}></i></div>
           <div style={{width: "50px", height: "50px", backgroundColor: "#E74C3C"}}><i className="fa fa-home"></i></div>
           <div style={{width: "50px", height: "50px", backgroundColor: "#E74C3C"}}><i className="fa fa-heart"></i></div>
           <div style={{width: "50px", height: "50px", backgroundColor: "#E74C3C"}}><i className="fa fa-home"></i></div>
+          <div style={{width: "50px", height: "50px", backgroundColor: "#E74C3C"}}><i className="fa fa-heart"></i></div>
+          <div style={{width: "50px", height: "50px", backgroundColor: "#E74C3C"}}><i className="fa fa-heart"></i></div>
           <div style={{width: "50px", height: "50px", backgroundColor: "#E74C3C"}}><i className="fa fa-heart"></i></div>
           <div style={{width: "50px", height: "50px", backgroundColor: "#E74C3C"}}><i className="fa fa-heart"></i></div>
         </Menu>

@@ -5,17 +5,19 @@ import MenuButton from './button';
 export default class MotionMenu extends Component {
 
   static propTypes = {
-    type: PropTypes.oneOf(['horizontal', 'vertical', 'circle']),
-    wing: PropTypes.bool,
-    x: PropTypes.number.isRequired,
-    y: PropTypes.number.isRequired,
     margin: PropTypes.number.isRequired,
+    type: PropTypes.oneOf(['horizontal', 'vertical', 'circle']).isRequired,
+    wing: PropTypes.bool,
+    x: PropTypes.number,
+    y: PropTypes.number,
     onClose: PropTypes.func,
     onOpen: PropTypes.func,
     className: PropTypes.string,
   }
 
   static defaultProps = {
+    x: 0,
+    y: 0,
     style: {},
     onClose: () => {},
     onOpen: () => {},
@@ -73,16 +75,24 @@ export default class MotionMenu extends Component {
       : this.props.margin * (i + 1);
   }
 
-  getX(distance, x) {
-    if (this.props.type === 'horizontal') {
-      return distance + x;
+  getX(i, x) {
+    const { type, margin, children } = this.props;
+    if (type === 'horizontal') {
+      return this.getDistance(i) + x;
+    }
+    if (type === 'circle') {
+      return x + (margin * Math.cos((Math.PI * 2 * i) / (children.length - 1)));
     }
     return x;
   }
 
-  getY(distance, y) {
-    if (this.props.type === 'vertical') {
-      return distance + y;
+  getY(i, y) {
+    const { type, margin, children } = this.props;
+    if (type === 'vertical') {
+      return this.getDistance(i) + y;
+    }
+    if (type === 'circle') {
+      return y + (margin * Math.sin((Math.PI * 2 * i) / (children.length - 1)));
     }
     return y;
   }
@@ -91,24 +101,20 @@ export default class MotionMenu extends Component {
     const { x, y } = this.props;
     return Array.from(Array(this.state.itemNumber).keys())
       .reverse()
-      .map((i) => {
-        const distance = this.getDistance(i);
-        return (
-          <MenuItem
-            direction={this.props.type}
-            key={i}
-            ref={(c) => { this.items[i + 1] = c; }}
-            name={`item${i + 1}`}
-            onOpenAnimationEnd={this.onOpenEnd}
-            onCloseAnimationEnd={this.onCloseEnd}
-            distance={distance}
-            x={this.getX(distance, x)}
-            y={this.getY(distance, y)}
-          >
-            {this.props.children[i + 1]}
-          </MenuItem>
-        );
-      },
+      .map(i => (
+        <MenuItem
+          direction={this.props.type}
+          key={i}
+          ref={(c) => { this.items[i + 1] = c; }}
+          name={`item${i + 1}`}
+          onOpenAnimationEnd={this.onOpenEnd}
+          onCloseAnimationEnd={this.onCloseEnd}
+          x={this.getX(i, x)}
+          y={this.getY(i, y)}
+        >
+          {this.props.children[i + 1]}
+        </MenuItem>
+      ),
     );
   }
 
