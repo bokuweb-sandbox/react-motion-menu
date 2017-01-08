@@ -1,64 +1,65 @@
-import React, {Component, PropTypes} from 'react';
-import {Motion, spring} from 'react-motion';
+import React, { Component, PropTypes, cloneElement } from 'react';
+import { Motion, spring } from 'react-motion';
 
-export default class Button extends Component{
+export default class MenuButton extends Component {
+
+  static propTypes = {
+    x: PropTypes.number.isRequired,
+    y: PropTypes.number.isRequired,
+    onClick: PropTypes.func,
+  };
+
   constructor(props) {
     super(props);
-    this.state = {sequence: 0};
-    this.params = [
+    this.state = {
+      sequence: 0,
+    };
+    this.sequenceParams = [
       {
-        scaleX : spring(1, [1500,10]),
-        scaleY : spring(1, [1500,10]),
+        scaleX: spring(1, { stiffness: 1500, damping: 10 }),
+        scaleY: spring(1, { stiffness: 1500, damping: 10 }),
+      }, {
+        scaleX: spring(0.6, { stiffness: 1500, damping: 50 }),
+        scaleY: spring(0.6, { stiffness: 1500, damping: 50 }),
+      }, {
+        scaleX: spring(1, { stiffness: 1500, damping: 10 }),
+        scaleY: spring(1, { stiffness: 1500, damping: 10 }),
       },
-      {
-        scaleX : spring(0.6, [1500, 50]),
-        scaleY : spring(0.6, [1500, 50]),
-      },
-      {
-        scaleX : spring(1, [1500, 10]),
-        scaleY : spring(1, [1500, 10]),
-      }
     ];
   }
 
   start() {
-    setTimeout(() => this.setState({sequence: 1 }), 100);
-    setTimeout(() => this.setState({sequence: 2 }), 150);
+    setTimeout(() => this.setState({ sequence: 1 }), 100);
+    setTimeout(() => this.setState({ sequence: 2 }), 150);
   }
 
   reverse() {
-    this.setState({sequence: 1 });
-    setTimeout(() => this.setState({sequence: 0 }), 50);
+    this.setState({ sequence: 1 });
+    setTimeout(() => this.setState({ sequence: 0 }), 50);
   }
 
   render() {
-    const {x, y, width, height, customStyle, onClick, customClass} = this.props;
+    const { x, y, onClick } = this.props;
+    if (!this.props.children) return null;
     return (
-      <Motion style={this.params[this.state.sequence]}>
-        {({scaleX, scaleY}) =>
-          <div
-            onClick={onClick}
-            className={customClass}
-            style={Object.assign({}, customStyle, {
-              transform: `translate3d(${x}px, ${y}px, 0) scaleX(${scaleX}) scaleY(${scaleY})`,
-              WebkitTransform: `translate3d(${x}px, ${y}px, 0) scaleX(${scaleX}) scaleY(${scaleY})`,
-              position: 'absolute',
-              width,
-              height
-            })} >
-            {this.props.children}
-          </div>
-        }
+      <Motion style={this.sequenceParams[this.state.sequence]}>
+        {({ scaleX, scaleY }) => (
+          cloneElement(
+            this.props.children,
+            {
+              ...(this.props.children.props || {}),
+              onClick,
+              style: {
+                ...this.props.children.props.style,
+                transform: `translate3d(${x}px, ${y}px, 0) scaleX(${scaleX}) scaleY(${scaleY})`,
+                WebkitTransform: `translate3d(${x}px, ${y}px, 0) scaleX(${scaleX}) scaleY(${scaleY})`,
+                position: 'absolute',
+              },
+            },
+          )
+        )
+      }
       </Motion>
     );
   }
-}
-
-Button.propTypes = {
-  x: PropTypes.number.isRequired,
-  y: PropTypes.number.isRequired,
-  width: PropTypes.number.isRequired,
-  height: PropTypes.number.isRequired,
-  customStyle: PropTypes.object,
-  customClass: PropTypes.string
 }
