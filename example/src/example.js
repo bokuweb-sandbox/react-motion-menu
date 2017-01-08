@@ -20,7 +20,6 @@ export default class Example extends Component {
   }
   render() {
     return (
-        <div>
         <Menu
           name="menu1"
           direction="horizontal"
@@ -39,13 +38,11 @@ export default class Example extends Component {
           height={50}
           y={500}
           x={-150} >
-          <div><i className={this.state.menu1.isOpen ? "fa fa-times" : "fa fa-bars"}></i></div>
+          <div style={{width: "50px", height: "50px", backgroundColor: "#E74C3C"}}><i className={this.state.menu1.isOpen ? "fa fa-times" : "fa fa-bars"}></i></div>
           <div style={{width: "50px", height: "50px", backgroundColor: "#E74C3C"}}><i className="fa fa-home"></i></div>
           <div style={{width: "50px", height: "50px", backgroundColor: "#E74C3C"}}><i className="fa fa-heart"></i></div>
-          <div><i className="fa fa-wrench"></i></div>
           <div><i className="fa fa-user"></i></div>
         </Menu>
-      </div>
     );
   }
 }

@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import MenuItem from './item';
-import Button from './button';
+import MenuButton from './button';
 
 export default class MotionMenu extends Component {
 
@@ -70,13 +70,12 @@ export default class MotionMenu extends Component {
     }
   }
 
+
   getItems() {
     const { x, y, width, height, direction, distance, customStyle, customClass } = this.props;
-    let children;
-    [button, ...children] = this.props.children;
-
-    for (let i = 0; i < this.state.itemNumber && i < children.length; i += 1) {
-      items.push(
+    return Array.from(Array(this.state.itemNumber).keys())
+      .reverse()
+      .map(i =>
         <MenuItem
           direction={this.props.direction}
           key={i}
@@ -92,21 +91,21 @@ export default class MotionMenu extends Component {
           x={direction === 'horizontal' ? ((i + 1) * distance) + x : x}
           y={direction === 'vertical' ? ((i + 1) * distance) + y : y}
         >
-          {children[i]}
+          {this.props.children[i + 1]}
         </MenuItem>,
       );
-    }
-    return items;
   }
 
-  get button() {
+  get menuButton() {
     return (
-      <Button
+      <MenuButton
         ref={(c) => { this.button = c; }}
         onClick={this.onClick}
+        x={this.props.x}
+        y={this.props.y}
       >
-        {this.props.children[0].props.children}
-      </Button>
+        {this.props.children[0]}
+      </MenuButton>
     );
   }
 
@@ -114,8 +113,8 @@ export default class MotionMenu extends Component {
     this.setState({ action: 'close' });
     this.button.reverse();
     Array.from(Array(this.state.itemNumber).keys())
-    .reverse()
-    .forEach(i => this.items[i].reverse());
+      .reverse()
+      .forEach(i => this.items[i + 1].reverse());
   }
 
   close() {
@@ -136,8 +135,8 @@ export default class MotionMenu extends Component {
 
   render() {
     return (
-      <div>
-        {this.button}
+      <div style={{ position: 'relative' }}>
+        {this.menuButton}
         {this.getItems()}
       </div>
     );
