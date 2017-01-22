@@ -50,7 +50,7 @@ export default class MenuButton extends Component {
               ...(this.props.children.props || {}),
               onClick,
               style: {
-                ...(this.props.children.props && this.props.children.props.style || {}),
+                ...((this.props.children.props && this.props.children.props.style) || {}),
                 transform: `translate3d(${x}px, ${y}px, 0) scaleX(${scaleX}) scaleY(${scaleY})`,
                 WebkitTransform: `translate3d(${x}px, ${y}px, 0) scaleX(${scaleX}) scaleY(${scaleY})`,
                 position: 'absolute',
