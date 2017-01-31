@@ -7,9 +7,10 @@ export default () => (
         margin={120}
         y={0}
         distFactor={0.5}
-        bumpy={true}
+        bumpy={false}
         x={0}
         openSpeed={60}
+        rightToLeft={true}
     >
         <div className="button"><i className="fa fa-bars" /></div>
         <div className="button"><i className="fa fa-cogs" /></div>

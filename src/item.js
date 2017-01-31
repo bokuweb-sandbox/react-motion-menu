@@ -22,7 +22,7 @@ const createSmoothParams = ({ x, y }) => ([
     },
 ]);
 
-const createBumpyParams = ({ x, y }) => ([
+const createBumpyParams = ( x, y ) => ([
         {
             scaleX: spring(0, { stiffness: 1500, damping: 100 }),
             scaleY: spring(0, { stiffness: 1500, damping: 100 }),
@@ -54,7 +54,8 @@ export default class MenuItem extends Component {
         onCloseAnimationEnd: PropTypes.func,
         bumpy: PropTypes.bool.isRequired,
         speedOpen: PropTypes.number,
-        openSpeed: PropTypes.number
+        openSpeed: PropTypes.number,
+        rightToLeft: PropTypes.bool
     }
 
     static defaultProps = {
@@ -68,6 +69,7 @@ export default class MenuItem extends Component {
         this.state = {
             sequence: 0,
         };
+
         this.sequenceParams =  this.props.bumpy ? createBumpyParams(props) : createSmoothParams(props);
     }
 
@@ -94,7 +96,14 @@ export default class MenuItem extends Component {
     }
 
     render() {
-        const { x, y } = this.props;
+        const { x, y, rightToLeft } = this.props;
+        let _X;
+        if (rightToLeft){
+            _X = (-1) * (x);
+        }else {
+            _X = x;
+        }
+
         if (!this.props.children) return null;
         return (
             <Motion style={this.sequenceParams[this.state.sequence]}>
@@ -105,8 +114,8 @@ export default class MenuItem extends Component {
                             ...(this.props.children.props || {}),
                             style: {
                                 ...((this.props.children.props && this.props.children.props.style) || {}),
-                                transform: `translate3d(${x}px, ${y}px, 0) scaleX(${scaleX}) scaleY(${scaleY})`,
-                                WebkitTransform: `translate3d(${x}px, ${y}px, 0) scaleX(${scaleX}) scaleY(${scaleY})`,
+                                transform: `translate3d(${_X}px, ${y}px, 0) scaleX(${scaleX}) scaleY(${scaleY})`,
+                                WebkitTransform: `translate3d(${_X}px, ${y}px, 0) scaleX(${scaleX}) scaleY(${scaleY})`,
                                 position: 'absolute',
                             },
                         },
