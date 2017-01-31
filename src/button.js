@@ -20,12 +20,10 @@ export default class MenuButton extends Component {
       {
         scaleX: spring(1, { stiffness: 1500, damping: 10 }),
         scaleY: spring(1, { stiffness: 1500, damping: 10 }),
-      },
-      {
+      }, {
         scaleX: spring(0.6, { stiffness: 1500, damping: 50 }),
         scaleY: spring(0.6, { stiffness: 1500, damping: 50 }),
-      },
-      {
+      }, {
         scaleX: spring(1, { stiffness: 1500, damping: 10 }),
         scaleY: spring(1, { stiffness: 1500, damping: 10 }),
       },
@@ -34,12 +32,10 @@ export default class MenuButton extends Component {
       {
         scaleX: spring(1, { stiffness: 1500, damping: 10 }),
         scaleY: spring(1, { stiffness: 1500, damping: 10 }),
-      },
-      {
+      }, {
         scaleX: spring(1, { stiffness: 200, damping: 50 }),
         scaleY: spring(1, { stiffness: 200, damping: 50 }),
-      },
-      {
+      }, {
         scaleX: spring(1, { stiffness: 1500, damping: 10 }),
         scaleY: spring(1, { stiffness: 1500, damping: 10 }),
       },

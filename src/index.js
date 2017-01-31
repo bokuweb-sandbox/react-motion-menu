@@ -77,8 +77,8 @@ export default class MotionMenu extends Component {
 
   getDistance(i) {
     return this.props.wing
-            ? (parseInt(i / 2, 10) + 1) * this.props.margin * ((i % 2) || -1)
-            : this.props.margin * (i + 1);
+      ? (parseInt(i / 2, 10) + 1) * this.props.margin * ((i % 2) || -1)
+      : this.props.margin * (i + 1);
   }
 
   getX(i, x) {
@@ -123,8 +123,8 @@ export default class MotionMenu extends Component {
         >
           {this.props.children[i + 1]}
         </MenuItem>
-                ),
-            );
+      ),
+    );
   }
 
   get menuButton() {
