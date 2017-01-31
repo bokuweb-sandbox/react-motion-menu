@@ -16,7 +16,7 @@ export default class MotionMenu extends Component {
         bumpy: PropTypes.bool,
         distFactor: PropTypes.number,
         openSpeed: PropTypes.number,
-        rightToLeft: PropTypes.bool
+        reverse: PropTypes.bool
     }
 
     static defaultProps = {
@@ -28,7 +28,7 @@ export default class MotionMenu extends Component {
         bumpy: false,
         distFactor: 0.5,
         openSpeed: 60,
-        rightToLeft: false
+        reverse: false
     }
 
     constructor(props) {
@@ -121,7 +121,7 @@ export default class MotionMenu extends Component {
                         y={this.getY(i, y)}
                         bumpy={bumpy}
                         openSpeed={this.props.openSpeed}
-                        rightToLeft={this.props.rightToLeft}
+                        reverse={this.props.reverse}
                     >
                         {this.props.children[i + 1]}
                     </MenuItem>

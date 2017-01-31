@@ -55,7 +55,7 @@ export default class MenuItem extends Component {
         bumpy: PropTypes.bool.isRequired,
         speedOpen: PropTypes.number,
         openSpeed: PropTypes.number,
-        rightToLeft: PropTypes.bool
+        reverse: PropTypes.bool
     }
 
     static defaultProps = {
@@ -96,13 +96,8 @@ export default class MenuItem extends Component {
     }
 
     render() {
-        const { x, y, rightToLeft } = this.props;
-        let _X;
-        if (rightToLeft){
-            _X = (-1) * (x);
-        }else {
-            _X = x;
-        }
+        const { x, y, reverse } = this.props;
+        const _x = reverse ? (-1) * (x) : x;
 
         if (!this.props.children) return null;
         return (
@@ -114,8 +109,8 @@ export default class MenuItem extends Component {
                             ...(this.props.children.props || {}),
                             style: {
                                 ...((this.props.children.props && this.props.children.props.style) || {}),
-                                transform: `translate3d(${_X}px, ${y}px, 0) scaleX(${scaleX}) scaleY(${scaleY})`,
-                                WebkitTransform: `translate3d(${_X}px, ${y}px, 0) scaleX(${scaleX}) scaleY(${scaleY})`,
+                                transform: `translate3d(${_x}px, ${y}px, 0) scaleX(${scaleX}) scaleY(${scaleY})`,
+                                WebkitTransform: `translate3d(${_x}px, ${y}px, 0) scaleX(${scaleX}) scaleY(${scaleY})`,
                                 position: 'absolute',
                             },
                         },

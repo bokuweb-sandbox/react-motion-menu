@@ -10,7 +10,7 @@ export default () => (
         bumpy={false}
         x={0}
         openSpeed={60}
-        rightToLeft={true}
+        reverse={true}
     >
         <div className="button"><i className="fa fa-bars" /></div>
         <div className="button"><i className="fa fa-cogs" /></div>
