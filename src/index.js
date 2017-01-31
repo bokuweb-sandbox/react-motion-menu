@@ -106,23 +106,23 @@ export default class MotionMenu extends Component {
   getItems() {
     const { x, y, bumpy } = this.props;
     return Array.from(Array(this.state.itemNumber).keys())
-            .reverse()
-            .map(i => (
-              <MenuItem
-                key={i}
-                ref={(c) => { this.items[i + 1] = c; }}
-                name={`item${i + 1}`}
-                onOpenAnimationEnd={this.onOpenEnd}
-                onCloseAnimationEnd={this.onCloseEnd}
-                x={this.getX(i, x)}
-                y={this.getY(i, y)}
-                bumpy={bumpy}
-                openSpeed={this.props.openSpeed}
-                reverse={this.props.reverse}
-                type={this.props.type}
-              >
-                {this.props.children[i + 1]}
-              </MenuItem>
+      .reverse()
+      .map(i => (
+        <MenuItem
+          key={i}
+          ref={(c) => { this.items[i + 1] = c; }}
+          name={`item${i + 1}`}
+          onOpenAnimationEnd={this.onOpenEnd}
+          onCloseAnimationEnd={this.onCloseEnd}
+          x={this.getX(i, x)}
+          y={this.getY(i, y)}
+          bumpy={bumpy}
+          openSpeed={this.props.openSpeed}
+          reverse={this.props.reverse}
+          type={this.props.type}
+        >
+          {this.props.children[i + 1]}
+        </MenuItem>
                 ),
             );
   }
@@ -145,8 +145,8 @@ export default class MotionMenu extends Component {
     this.setState({ action: 'close' });
     this.button.reverse();
     Array.from(Array(this.state.itemNumber).keys())
-            .reverse()
-            .forEach(i => this.items[i + 1].reverse());
+      .reverse()
+      .forEach(i => this.items[i + 1].reverse());
   }
 
   close() {

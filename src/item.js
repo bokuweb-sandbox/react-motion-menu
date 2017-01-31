@@ -104,17 +104,17 @@ export default class MenuItem extends Component {
     return (
       <Motion style={this.sequenceParams[this.state.sequence]}>
         {({ scaleX, scaleY }) => (
-                    cloneElement(
-                        this.props.children,
-                      {
-                        ...(this.props.children.props || {}),
-                        style: {
-                          ...((this.props.children.props && this.props.children.props.style) || {}),
-                          transform: `translate3d(${_x}px, ${_y}px, 0) scaleX(${scaleX}) scaleY(${scaleY})`,
-                          WebkitTransform: `translate3d(${_x}px, ${_y}px, 0) scaleX(${scaleX}) scaleY(${scaleY})`,
-                          position: 'absolute',
-                        },
-                      },
+          cloneElement(
+            this.props.children,
+            {
+              ...(this.props.children.props || {}),
+              style: {
+                ...((this.props.children.props && this.props.children.props.style) || {}),
+                transform: `translate3d(${_x}px, ${_y}px, 0) scaleX(${scaleX}) scaleY(${scaleY})`,
+                WebkitTransform: `translate3d(${_x}px, ${_y}px, 0) scaleX(${scaleX}) scaleY(${scaleY})`,
+                position: 'absolute',
+              },
+            },
                     )
                 )
                 }
