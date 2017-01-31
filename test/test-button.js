@@ -8,7 +8,7 @@ describe('Button Component test', () => {
 
   it('should mount button component without error', () => {
     mount(
-      <MenuButton x={0} y={0} onClick={() => {}} bumpy={true}>
+      <MenuButton x={0} y={0} onClick={() => {}}>
         <div>sample</div>
       </MenuButton>,
     );

@@ -90,7 +90,7 @@ export default class MenuItem extends Component {
     this.timerIds[0] = setTimeout(() => {
       this.timerIds[0] = null;
       this.props.onCloseAnimationEnd(this.props.name);
-    }, 80);
+    }, 100);
     this.setState({ sequence: 0 });
   }
 
@@ -115,7 +115,7 @@ export default class MenuItem extends Component {
             },
           )
         )
-       }
+      }
       </Motion>
     );
   }
