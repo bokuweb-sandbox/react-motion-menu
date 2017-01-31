@@ -19,13 +19,13 @@ exports.default = function () {
     return _react2.default.createElement(
         _src2.default,
         {
-            type: 'circle',
+            type: 'vertical',
             margin: 120,
             y: 0,
-            distFactor: 0.5,
             bumpy: false,
             x: 0,
             openSpeed: 60,
+            wing: true,
             reverse: true
         },
         _react2.default.createElement(
@@ -22203,7 +22203,7 @@ var MotionMenu = function (_Component) {
     }, {
         key: 'getDistance',
         value: function getDistance(i) {
-            return this.props.wing ? (parseInt(i / 2, 10) + 1) * this.props.margin * (i % 2 || -1) : this.props.margin * (i + 1) * this.props.distFactor;
+            return this.props.wing ? (parseInt(i / 2, 10) + 1) * this.props.margin * (i % 2 || -1) : this.props.margin * (i + 1);
         }
     }, {
         key: 'getX',
@@ -22350,7 +22350,6 @@ MotionMenu.propTypes = {
     onOpen: _react.PropTypes.func,
     className: _react.PropTypes.string,
     bumpy: _react.PropTypes.bool,
-    distFactor: _react.PropTypes.number,
     openSpeed: _react.PropTypes.number,
     reverse: _react.PropTypes.bool
 };
@@ -22361,7 +22360,6 @@ MotionMenu.defaultProps = {
     onClose: function onClose() {},
     onOpen: function onOpen() {},
     bumpy: false,
-    distFactor: 0.5,
     openSpeed: 60,
     reverse: false
 };

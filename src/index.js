@@ -14,7 +14,6 @@ export default class MotionMenu extends Component {
         onOpen: PropTypes.func,
         className: PropTypes.string,
         bumpy: PropTypes.bool,
-        distFactor: PropTypes.number,
         openSpeed: PropTypes.number,
         reverse: PropTypes.bool
     }
@@ -26,7 +25,6 @@ export default class MotionMenu extends Component {
         onClose: () => {},
         onOpen: () => {},
         bumpy: false,
-        distFactor: 0.5,
         openSpeed: 60,
         reverse: false
     }
@@ -80,7 +78,7 @@ export default class MotionMenu extends Component {
     getDistance(i) {
         return this.props.wing
             ? (parseInt(i / 2, 10) + 1) * this.props.margin * ((i % 2) || -1)
-            : this.props.margin * (i + 1) * (this.props.distFactor);
+            : this.props.margin * (i + 1);
     }
 
     getX(i, x) {

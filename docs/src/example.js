@@ -3,13 +3,13 @@ import MotionMenu from '../../src';
 
 export default () => (
     <MotionMenu
-        type="circle"
+        type="vertical"
         margin={120}
         y={0}
-        distFactor={0.5}
         bumpy={false}
         x={0}
         openSpeed={60}
+        wing={true}
         reverse={true}
     >
         <div className="button"><i className="fa fa-bars" /></div>
