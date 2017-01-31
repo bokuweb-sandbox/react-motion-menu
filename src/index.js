@@ -111,7 +111,6 @@ export default class MotionMenu extends Component {
             .reverse()
             .map(i => (
                     <MenuItem
-                        direction={this.props.type}
                         key={i}
                         ref={(c) => { this.items[i + 1] = c; }}
                         name={`item${i + 1}`}
@@ -122,6 +121,7 @@ export default class MotionMenu extends Component {
                         bumpy={bumpy}
                         openSpeed={this.props.openSpeed}
                         reverse={this.props.reverse}
+                        type={this.props.type}
                     >
                         {this.props.children[i + 1]}
                     </MenuItem>

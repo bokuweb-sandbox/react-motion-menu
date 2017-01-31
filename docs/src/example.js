@@ -3,7 +3,7 @@ import MotionMenu from '../../src';
 
 export default () => (
     <MotionMenu
-        type="horizontal"
+        type="circle"
         margin={120}
         y={0}
         distFactor={0.5}

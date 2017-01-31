@@ -55,8 +55,9 @@ export default class MenuItem extends Component {
         bumpy: PropTypes.bool.isRequired,
         speedOpen: PropTypes.number,
         openSpeed: PropTypes.number,
-        reverse: PropTypes.bool
-    }
+        reverse: PropTypes.bool,
+        type: PropTypes.oneOf(['horizontal', 'vertical', 'circle']).isRequired,
+}
 
     static defaultProps = {
         onOpenAnimationEnd: () => {},
@@ -96,9 +97,9 @@ export default class MenuItem extends Component {
     }
 
     render() {
-        const { x, y, reverse } = this.props;
+        const { x, y, reverse, type } = this.props;
         const _x = reverse ? (-1) * (x) : x;
-
+        const _y = (type === 'vertical' && reverse) ? (-1) * (y) : y;
         if (!this.props.children) return null;
         return (
             <Motion style={this.sequenceParams[this.state.sequence]}>
@@ -109,8 +110,8 @@ export default class MenuItem extends Component {
                             ...(this.props.children.props || {}),
                             style: {
                                 ...((this.props.children.props && this.props.children.props.style) || {}),
-                                transform: `translate3d(${_x}px, ${y}px, 0) scaleX(${scaleX}) scaleY(${scaleY})`,
-                                WebkitTransform: `translate3d(${_x}px, ${y}px, 0) scaleX(${scaleX}) scaleY(${scaleY})`,
+                                transform: `translate3d(${_x}px, ${_y}px, 0) scaleX(${scaleX}) scaleY(${scaleY})`,
+                                WebkitTransform: `translate3d(${_x}px, ${_y}px, 0) scaleX(${scaleX}) scaleY(${scaleY})`,
                                 position: 'absolute',
                             },
                         },

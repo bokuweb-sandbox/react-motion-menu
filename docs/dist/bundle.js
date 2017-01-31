@@ -19,7 +19,7 @@ exports.default = function () {
     return _react2.default.createElement(
         _src2.default,
         {
-            type: 'horizontal',
+            type: 'circle',
             margin: 120,
             y: 0,
             distFactor: 0.5,
@@ -22251,7 +22251,6 @@ var MotionMenu = function (_Component) {
                 return _react2.default.createElement(
                     _item2.default,
                     {
-                        direction: _this2.props.type,
                         key: i,
                         ref: function ref(c) {
                             _this2.items[i + 1] = c;
@@ -22263,7 +22262,8 @@ var MotionMenu = function (_Component) {
                         y: _this2.getY(i, y),
                         bumpy: bumpy,
                         openSpeed: _this2.props.openSpeed,
-                        reverse: _this2.props.reverse
+                        reverse: _this2.props.reverse,
+                        type: _this2.props.type
                     },
                     _this2.props.children[i + 1]
                 );
@@ -22487,10 +22487,11 @@ var MenuItem = function (_Component) {
             var _props = this.props,
                 x = _props.x,
                 y = _props.y,
-                reverse = _props.reverse;
+                reverse = _props.reverse,
+                type = _props.type;
 
             var _x = reverse ? -1 * x : x;
-
+            var _y = type === 'vertical' && reverse ? -1 * y : y;
             if (!this.props.children) return null;
             return _react2.default.createElement(
                 _reactMotion.Motion,
@@ -22500,8 +22501,8 @@ var MenuItem = function (_Component) {
                         scaleY = _ref2.scaleY;
                     return (0, _react.cloneElement)(_this4.props.children, _extends({}, _this4.props.children.props || {}, {
                         style: _extends({}, _this4.props.children.props && _this4.props.children.props.style || {}, {
-                            transform: 'translate3d(' + _x + 'px, ' + y + 'px, 0) scaleX(' + scaleX + ') scaleY(' + scaleY + ')',
-                            WebkitTransform: 'translate3d(' + _x + 'px, ' + y + 'px, 0) scaleX(' + scaleX + ') scaleY(' + scaleY + ')',
+                            transform: 'translate3d(' + _x + 'px, ' + _y + 'px, 0) scaleX(' + scaleX + ') scaleY(' + scaleY + ')',
+                            WebkitTransform: 'translate3d(' + _x + 'px, ' + _y + 'px, 0) scaleX(' + scaleX + ') scaleY(' + scaleY + ')',
                             position: 'absolute'
                         })
                     }));
@@ -22522,7 +22523,8 @@ MenuItem.propTypes = {
     bumpy: _react.PropTypes.bool.isRequired,
     speedOpen: _react.PropTypes.number,
     openSpeed: _react.PropTypes.number,
-    reverse: _react.PropTypes.bool
+    reverse: _react.PropTypes.bool,
+    type: _react.PropTypes.oneOf(['horizontal', 'vertical', 'circle']).isRequired
 };
 MenuItem.defaultProps = {
     onOpenAnimationEnd: function onOpenAnimationEnd() {},
