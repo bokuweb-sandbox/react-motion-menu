@@ -19,14 +19,10 @@ exports.default = function () {
   return _react2.default.createElement(
     _src2.default,
     {
-      type: 'horizontal',
+      type: 'circle',
       margin: 120,
       y: 0,
-      bumpy: false,
-      x: 0,
-      openSpeed: 10,
-      wing: false,
-      reverse: true
+      x: 0
     },
     _react2.default.createElement(
       'div',
@@ -293,7 +289,7 @@ module.exports = camelizeStyleName;
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  *
- * 
+ *
  */
 
 var isTextNode = require('./isTextNode');
@@ -1199,15 +1195,8 @@ if (process.env.NODE_ENV !== 'production') {
 module.exports = warning;
 }).call(this,require('_process'))
 },{"./emptyFunction":10,"_process":28}],26:[function(require,module,exports){
-/*
-object-assign
-(c) Sindre Sorhus
-@license MIT
-*/
-
 'use strict';
 /* eslint-disable no-unused-vars */
-var getOwnPropertySymbols = Object.getOwnPropertySymbols;
 var hasOwnProperty = Object.prototype.hasOwnProperty;
 var propIsEnumerable = Object.prototype.propertyIsEnumerable;
 
@@ -1228,7 +1217,7 @@ function shouldUseNative() {
 		// Detect buggy property enumeration order in older V8 versions.
 
 		// https://bugs.chromium.org/p/v8/issues/detail?id=4118
-		var test1 = new String('abc');  // eslint-disable-line no-new-wrappers
+		var test1 = new String('abc');  // eslint-disable-line
 		test1[5] = 'de';
 		if (Object.getOwnPropertyNames(test1)[0] === '5') {
 			return false;
@@ -1257,7 +1246,7 @@ function shouldUseNative() {
 		}
 
 		return true;
-	} catch (err) {
+	} catch (e) {
 		// We don't expect any of the above to throw, but better to be safe.
 		return false;
 	}
@@ -1277,8 +1266,8 @@ module.exports = shouldUseNative() ? Object.assign : function (target, source) {
 			}
 		}
 
-		if (getOwnPropertySymbols) {
-			symbols = getOwnPropertySymbols(from);
+		if (Object.getOwnPropertySymbols) {
+			symbols = Object.getOwnPropertySymbols(from);
 			for (var i = 0; i < symbols.length; i++) {
 				if (propIsEnumerable.call(from, symbols[i])) {
 					to[symbols[i]] = from[symbols[i]];
@@ -5339,6 +5328,17 @@ var fourArgumentPooler = function (a1, a2, a3, a4) {
   }
 };
 
+var fiveArgumentPooler = function (a1, a2, a3, a4, a5) {
+  var Klass = this;
+  if (Klass.instancePool.length) {
+    var instance = Klass.instancePool.pop();
+    Klass.call(instance, a1, a2, a3, a4, a5);
+    return instance;
+  } else {
+    return new Klass(a1, a2, a3, a4, a5);
+  }
+};
+
 var standardReleaser = function (instance) {
   var Klass = this;
   !(instance instanceof Klass) ? process.env.NODE_ENV !== 'production' ? invariant(false, 'Trying to release an instance into a pool of a different type.') : _prodInvariant('25') : void 0;
@@ -5378,7 +5378,8 @@ var PooledClass = {
   oneArgumentPooler: oneArgumentPooler,
   twoArgumentPooler: twoArgumentPooler,
   threeArgumentPooler: threeArgumentPooler,
-  fourArgumentPooler: fourArgumentPooler
+  fourArgumentPooler: fourArgumentPooler,
+  fiveArgumentPooler: fiveArgumentPooler
 };
 
 module.exports = PooledClass;
@@ -6181,7 +6182,7 @@ var ReactCompositeComponent = {
       // Since plain JS classes are defined without any special initialization
       // logic, we can not catch common errors early. Therefore, we have to
       // catch them here, at initialization time, instead.
-      process.env.NODE_ENV !== 'production' ? warning(!inst.getInitialState || inst.getInitialState.isReactClassApproved || inst.state, 'getInitialState was defined on %s, a plain JavaScript class. ' + 'This is only supported for classes created using React.createClass. ' + 'Did you mean to define a state property instead?', this.getName() || 'a component') : void 0;
+      process.env.NODE_ENV !== 'production' ? warning(!inst.getInitialState || inst.getInitialState.isReactClassApproved, 'getInitialState was defined on %s, a plain JavaScript class. ' + 'This is only supported for classes created using React.createClass. ' + 'Did you mean to define a state property instead?', this.getName() || 'a component') : void 0;
       process.env.NODE_ENV !== 'production' ? warning(!inst.getDefaultProps || inst.getDefaultProps.isReactClassApproved, 'getDefaultProps was defined on %s, a plain JavaScript class. ' + 'This is only supported for classes created using React.createClass. ' + 'Use a static property to define defaultProps instead.', this.getName() || 'a component') : void 0;
       process.env.NODE_ENV !== 'production' ? warning(!inst.propTypes, 'propTypes was defined as an instance property on %s. Use a static ' + 'property to define propTypes instead.', this.getName() || 'a component') : void 0;
       process.env.NODE_ENV !== 'production' ? warning(!inst.contextTypes, 'contextTypes was defined as an instance property on %s. Use a ' + 'static property to define contextTypes instead.', this.getName() || 'a component') : void 0;
@@ -7647,18 +7648,12 @@ ReactDOMComponent.Mixin = {
     } else {
       var contentToUse = CONTENT_TYPES[typeof props.children] ? props.children : null;
       var childrenToUse = contentToUse != null ? null : props.children;
-      // TODO: Validate that text is allowed as a child of this node
       if (contentToUse != null) {
-        // Avoid setting textContent when the text is empty. In IE11 setting
-        // textContent on a text area will cause the placeholder to not
-        // show within the textarea until it has been focused and blurred again.
-        // https://github.com/facebook/react/issues/6731#issuecomment-254874553
-        if (contentToUse !== '') {
-          if (process.env.NODE_ENV !== 'production') {
-            setAndValidateContentChildDev.call(this, contentToUse);
-          }
-          DOMLazyTree.queueText(lazyTree, contentToUse);
+        // TODO: Validate that text is allowed as a child of this node
+        if (process.env.NODE_ENV !== 'production') {
+          setAndValidateContentChildDev.call(this, contentToUse);
         }
+        DOMLazyTree.queueText(lazyTree, contentToUse);
       } else if (childrenToUse != null) {
         var mountImages = this.mountChildren(childrenToUse, transaction, context);
         for (var i = 0; i < mountImages.length; i++) {
@@ -8010,13 +8005,6 @@ var Flags = ReactDOMComponentFlags;
 var internalInstanceKey = '__reactInternalInstance$' + Math.random().toString(36).slice(2);
 
 /**
- * Check if a given node should be cached.
- */
-function shouldPrecacheNode(node, nodeID) {
-  return node.nodeType === 1 && node.getAttribute(ATTR_NAME) === String(nodeID) || node.nodeType === 8 && node.nodeValue === ' react-text: ' + nodeID + ' ' || node.nodeType === 8 && node.nodeValue === ' react-empty: ' + nodeID + ' ';
-}
-
-/**
  * Drill down (through composites and empty components) until we get a host or
  * host text component.
  *
@@ -8081,7 +8069,7 @@ function precacheChildNodes(inst, node) {
     }
     // We assume the child nodes are in the same order as the child instances.
     for (; childNode !== null; childNode = childNode.nextSibling) {
-      if (shouldPrecacheNode(childNode, childID)) {
+      if (childNode.nodeType === 1 && childNode.getAttribute(ATTR_NAME) === String(childID) || childNode.nodeType === 8 && childNode.nodeValue === ' react-text: ' + childID + ' ' || childNode.nodeType === 8 && childNode.nodeValue === ' react-empty: ' + childID + ' ') {
         precacheNode(childInst, childNode);
         continue outer;
       }
@@ -8489,17 +8477,7 @@ var ReactDOMInput = {
       }
     } else {
       if (props.value == null && props.defaultValue != null) {
-        // In Chrome, assigning defaultValue to certain input types triggers input validation.
-        // For number inputs, the display value loses trailing decimal points. For email inputs,
-        // Chrome raises "The specified value <x> is not a valid email address".
-        //
-        // Here we check to see if the defaultValue has actually changed, avoiding these problems
-        // when the user is inputting text
-        //
-        // https://github.com/facebook/react/issues/7253
-        if (node.defaultValue !== '' + props.defaultValue) {
-          node.defaultValue = '' + props.defaultValue;
-        }
+        node.defaultValue = '' + props.defaultValue;
       }
       if (props.checked == null && props.defaultChecked != null) {
         node.defaultChecked = !!props.defaultChecked;
@@ -9594,15 +9572,9 @@ var ReactDOMTextarea = {
     // This is in postMount because we need access to the DOM node, which is not
     // available until after the component has mounted.
     var node = ReactDOMComponentTree.getNodeFromInstance(inst);
-    var textContent = node.textContent;
 
-    // Only set node.value if textContent is equal to the expected
-    // initial value. In IE10/IE11 there is a bug where the placeholder attribute
-    // will populate textContent as well.
-    // https://developer.microsoft.com/microsoft-edge/platform/issues/101525/
-    if (textContent === inst._wrapperState.initialValue) {
-      node.value = textContent;
-    }
+    // Warning: node.value may be the empty string at this point (IE11) if placeholder is set.
+    node.value = node.textContent; // Detach value from defaultValue
   }
 };
 
@@ -10737,11 +10709,14 @@ module.exports = ReactFeatureFlags;
 
 'use strict';
 
-var _prodInvariant = require('./reactProdInvariant');
+var _prodInvariant = require('./reactProdInvariant'),
+    _assign = require('object-assign');
 
 var invariant = require('fbjs/lib/invariant');
 
 var genericComponentClass = null;
+// This registry keeps track of wrapper classes around host tags.
+var tagToComponentClass = {};
 var textComponentClass = null;
 
 var ReactHostComponentInjection = {
@@ -10754,6 +10729,11 @@ var ReactHostComponentInjection = {
   // rendered as props.
   injectTextComponentClass: function (componentClass) {
     textComponentClass = componentClass;
+  },
+  // This accepts a keyed object with classes as values. Each key represents a
+  // tag. That particular tag will use this class instead of the generic one.
+  injectComponentClasses: function (componentClasses) {
+    _assign(tagToComponentClass, componentClasses);
   }
 };
 
@@ -10793,7 +10773,7 @@ var ReactHostComponent = {
 
 module.exports = ReactHostComponent;
 }).call(this,require('_process'))
-},{"./reactProdInvariant":150,"_process":28,"fbjs/lib/invariant":18}],88:[function(require,module,exports){
+},{"./reactProdInvariant":150,"_process":28,"fbjs/lib/invariant":18,"object-assign":26}],88:[function(require,module,exports){
 /**
  * Copyright 2016-present, Facebook, Inc.
  * All rights reserved.
@@ -13488,7 +13468,7 @@ module.exports = ReactUpdates;
 
 'use strict';
 
-module.exports = '15.4.2';
+module.exports = '15.4.1';
 },{}],109:[function(require,module,exports){
 /**
  * Copyright 2013-present, Facebook, Inc.
@@ -16510,17 +16490,7 @@ function instantiateReactComponent(node, shouldHaveDebugID) {
     instance = ReactEmptyComponent.create(instantiateReactComponent);
   } else if (typeof node === 'object') {
     var element = node;
-    var type = element.type;
-    if (typeof type !== 'function' && typeof type !== 'string') {
-      var info = '';
-      if (process.env.NODE_ENV !== 'production') {
-        if (type === undefined || typeof type === 'object' && type !== null && Object.keys(type).length === 0) {
-          info += ' You likely forgot to export your component from the file ' + 'it\'s defined in.';
-        }
-      }
-      info += getDeclarationErrorAddendum(element._owner);
-      !false ? process.env.NODE_ENV !== 'production' ? invariant(false, 'Element type is invalid: expected a string (for built-in components) or a class/function (for composite components) but got: %s.%s', type == null ? type : typeof type, info) : _prodInvariant('130', type == null ? type : typeof type, info) : void 0;
-    }
+    !(element && (typeof element.type === 'function' || typeof element.type === 'string')) ? process.env.NODE_ENV !== 'production' ? invariant(false, 'Element type is invalid: expected a string (for built-in components) or a class/function (for composite components) but got: %s.%s', element.type == null ? element.type : typeof element.type, getDeclarationErrorAddendum(element._owner)) : _prodInvariant('130', element.type == null ? element.type : typeof element.type, getDeclarationErrorAddendum(element._owner)) : void 0;
 
     // Special case string values
     if (typeof element.type === 'string') {
@@ -20998,14 +20968,7 @@ var ReactElementValidator = {
     // We warn in this case but don't throw. We expect the element creation to
     // succeed and there will likely be errors in render.
     if (!validType) {
-      if (typeof type !== 'function' && typeof type !== 'string') {
-        var info = '';
-        if (type === undefined || typeof type === 'object' && type !== null && Object.keys(type).length === 0) {
-          info += ' You likely forgot to export your component from the file ' + 'it\'s defined in.';
-        }
-        info += getDeclarationErrorAddendum();
-        process.env.NODE_ENV !== 'production' ? warning(false, 'React.createElement: type is invalid -- expected a string (for ' + 'built-in components) or a class/function (for composite ' + 'components) but got: %s.%s', type == null ? type : typeof type, info) : void 0;
-      }
+      process.env.NODE_ENV !== 'production' ? warning(false, 'React.createElement: type should not be null, undefined, boolean, or ' + 'number. It should be a string (for DOM elements) or a ReactClass ' + '(for composite components).%s', getDeclarationErrorAddendum()) : void 0;
     }
 
     var element = ReactElement.createElement.apply(this, arguments);
@@ -22030,21 +21993,12 @@ var MenuButton = function (_Component) {
     _this.state = {
       sequence: 0
     };
-    _this.sequenceParams = _this.props.bumpy ? [{
+    _this.sequenceParams = [{
       scaleX: (0, _reactMotion.spring)(1, { stiffness: 1500, damping: 10 }),
       scaleY: (0, _reactMotion.spring)(1, { stiffness: 1500, damping: 10 })
     }, {
       scaleX: (0, _reactMotion.spring)(0.6, { stiffness: 1500, damping: 50 }),
       scaleY: (0, _reactMotion.spring)(0.6, { stiffness: 1500, damping: 50 })
-    }, {
-      scaleX: (0, _reactMotion.spring)(1, { stiffness: 1500, damping: 10 }),
-      scaleY: (0, _reactMotion.spring)(1, { stiffness: 1500, damping: 10 })
-    }] : [{
-      scaleX: (0, _reactMotion.spring)(1, { stiffness: 1500, damping: 10 }),
-      scaleY: (0, _reactMotion.spring)(1, { stiffness: 1500, damping: 10 })
-    }, {
-      scaleX: (0, _reactMotion.spring)(1, { stiffness: 200, damping: 50 }),
-      scaleY: (0, _reactMotion.spring)(1, { stiffness: 200, damping: 50 })
     }, {
       scaleX: (0, _reactMotion.spring)(1, { stiffness: 1500, damping: 10 }),
       scaleY: (0, _reactMotion.spring)(1, { stiffness: 1500, damping: 10 })
@@ -22093,7 +22047,7 @@ var MenuButton = function (_Component) {
               scaleY = _ref.scaleY;
           return (0, _react.cloneElement)(_this4.props.children, _extends({}, _this4.props.children.props || {}, {
             onClick: onClick,
-            style: _extends({}, _this4.props.children.props && _this4.props.children.props.style || {}, {
+            style: _extends({}, _this4.props.children.props.style, {
               transform: 'translate3d(' + x + 'px, ' + y + 'px, 0) scaleX(' + scaleX + ') scaleY(' + scaleY + ')',
               WebkitTransform: 'translate3d(' + x + 'px, ' + y + 'px, 0) scaleX(' + scaleX + ') scaleY(' + scaleY + ')',
               position: 'absolute'
@@ -22110,8 +22064,7 @@ var MenuButton = function (_Component) {
 MenuButton.propTypes = {
   x: _react.PropTypes.number.isRequired,
   y: _react.PropTypes.number.isRequired,
-  onClick: _react.PropTypes.func,
-  bumpy: _react.PropTypes.bool
+  onClick: _react.PropTypes.func
 };
 exports.default = MenuButton;
 
@@ -22244,13 +22197,13 @@ var MotionMenu = function (_Component) {
 
       var _props3 = this.props,
           x = _props3.x,
-          y = _props3.y,
-          bumpy = _props3.bumpy;
+          y = _props3.y;
 
       return Array.from(Array(this.state.itemNumber).keys()).reverse().map(function (i) {
         return _react2.default.createElement(
           _item2.default,
           {
+            direction: _this2.props.type,
             key: i,
             ref: function ref(c) {
               _this2.items[i + 1] = c;
@@ -22259,11 +22212,7 @@ var MotionMenu = function (_Component) {
             onOpenAnimationEnd: _this2.onOpenEnd,
             onCloseAnimationEnd: _this2.onCloseEnd,
             x: _this2.getX(i, x),
-            y: _this2.getY(i, y),
-            bumpy: bumpy,
-            openSpeed: _this2.props.openSpeed,
-            reverse: _this2.props.reverse,
-            type: _this2.props.type
+            y: _this2.getY(i, y)
           },
           _this2.props.children[i + 1]
         );
@@ -22329,8 +22278,7 @@ var MotionMenu = function (_Component) {
           },
           onClick: this.onClick,
           x: this.props.x,
-          y: this.props.y,
-          bumpy: this.props.bumpy
+          y: this.props.y
         },
         this.props.children[0]
       );
@@ -22348,20 +22296,14 @@ MotionMenu.propTypes = {
   y: _react.PropTypes.number,
   onClose: _react.PropTypes.func,
   onOpen: _react.PropTypes.func,
-  className: _react.PropTypes.string,
-  bumpy: _react.PropTypes.bool,
-  openSpeed: _react.PropTypes.number,
-  reverse: _react.PropTypes.bool
+  className: _react.PropTypes.string
 };
 MotionMenu.defaultProps = {
   x: 0,
   y: 0,
   style: {},
   onClose: function onClose() {},
-  onOpen: function onOpen() {},
-  bumpy: false,
-  openSpeed: 60,
-  reverse: false
+  onOpen: function onOpen() {}
 };
 exports.default = MotionMenu;
 
@@ -22390,28 +22332,9 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var createSmoothParams = function createSmoothParams(_ref) {
+var createParams = function createParams(_ref) {
   var x = _ref.x,
       y = _ref.y;
-  return [{
-    scaleX: (0, _reactMotion.spring)(0, { stiffness: 1500, damping: 100 }),
-    scaleY: (0, _reactMotion.spring)(0, { stiffness: 1500, damping: 100 }),
-    x: (0, _reactMotion.spring)(x, { stiffness: 1500, damping: 50 }),
-    y: (0, _reactMotion.spring)(y, { stiffness: 1500, damping: 50 })
-  }, {
-    scaleX: (0, _reactMotion.spring)(0.5, { stiffness: 120, damping: 20 }),
-    scaleY: (0, _reactMotion.spring)(0.5, { stiffness: 120, damping: 20 }),
-    x: (0, _reactMotion.spring)(x, { stiffness: 120, damping: 20 }),
-    y: (0, _reactMotion.spring)(y, { stiffness: 120, damping: 20 })
-  }, {
-    scaleX: (0, _reactMotion.spring)(1, { stiffness: 120, damping: 20 }),
-    scaleY: (0, _reactMotion.spring)(1, { stiffness: 120, damping: 20 }),
-    x: (0, _reactMotion.spring)(x, { stiffness: 120, damping: 20 }),
-    y: (0, _reactMotion.spring)(y, { stiffness: 120, damping: 20 })
-  }];
-};
-
-var createBumpyParams = function createBumpyParams(x, y) {
   return [{
     scaleX: (0, _reactMotion.spring)(0, { stiffness: 1500, damping: 100 }),
     scaleY: (0, _reactMotion.spring)(0, { stiffness: 1500, damping: 100 }),
@@ -22442,8 +22365,7 @@ var MenuItem = function (_Component) {
     _this.state = {
       sequence: 0
     };
-
-    _this.sequenceParams = _this.props.bumpy ? createBumpyParams(props) : createSmoothParams(props);
+    _this.sequenceParams = createParams(props);
     return _this;
   }
 
@@ -22455,13 +22377,13 @@ var MenuItem = function (_Component) {
       this.timerIds[1] = setTimeout(function () {
         _this2.setState({ sequence: 1 });
         _this2.timerIds[1] = null;
-      }, this.props.openSpeed);
+      }, 60);
 
       this.timerIds[2] = setTimeout(function () {
         _this2.setState({ sequence: 2 });
         _this2.timerIds[2] = null;
         _this2.props.onOpenAnimationEnd(_this2.props.name);
-      }, this.props.openSpeed);
+      }, 80);
     }
   }, {
     key: 'reverse',
@@ -22474,7 +22396,7 @@ var MenuItem = function (_Component) {
       this.timerIds[0] = setTimeout(function () {
         _this3.timerIds[0] = null;
         _this3.props.onCloseAnimationEnd(_this3.props.name);
-      }, 80);
+      }, 100);
       this.setState({ sequence: 0 });
     }
   }, {
@@ -22484,12 +22406,8 @@ var MenuItem = function (_Component) {
 
       var _props = this.props,
           x = _props.x,
-          y = _props.y,
-          reverse = _props.reverse,
-          type = _props.type;
+          y = _props.y;
 
-      var _x = reverse ? -1 * x : x;
-      var _y = type === 'vertical' && reverse ? -1 * y : y;
       if (!this.props.children) return null;
       return _react2.default.createElement(
         _reactMotion.Motion,
@@ -22498,9 +22416,9 @@ var MenuItem = function (_Component) {
           var scaleX = _ref2.scaleX,
               scaleY = _ref2.scaleY;
           return (0, _react.cloneElement)(_this4.props.children, _extends({}, _this4.props.children.props || {}, {
-            style: _extends({}, _this4.props.children.props && _this4.props.children.props.style || {}, {
-              transform: 'translate3d(' + _x + 'px, ' + _y + 'px, 0) scaleX(' + scaleX + ') scaleY(' + scaleY + ')',
-              WebkitTransform: 'translate3d(' + _x + 'px, ' + _y + 'px, 0) scaleX(' + scaleX + ') scaleY(' + scaleY + ')',
+            style: _extends({}, _this4.props.children.props.style, {
+              transform: 'translate3d(' + x + 'px, ' + y + 'px, 0) scaleX(' + scaleX + ') scaleY(' + scaleY + ')',
+              WebkitTransform: 'translate3d(' + x + 'px, ' + y + 'px, 0) scaleX(' + scaleX + ') scaleY(' + scaleY + ')',
               position: 'absolute'
             })
           }));
@@ -22517,12 +22435,7 @@ MenuItem.propTypes = {
   y: _react.PropTypes.number.isRequired,
   name: _react.PropTypes.string.isRequired,
   onOpenAnimationEnd: _react.PropTypes.func,
-  onCloseAnimationEnd: _react.PropTypes.func,
-  bumpy: _react.PropTypes.bool.isRequired,
-  speedOpen: _react.PropTypes.number,
-  openSpeed: _react.PropTypes.number,
-  reverse: _react.PropTypes.bool,
-  type: _react.PropTypes.oneOf(['horizontal', 'vertical', 'circle']).isRequired
+  onCloseAnimationEnd: _react.PropTypes.func
 };
 MenuItem.defaultProps = {
   onOpenAnimationEnd: function onOpenAnimationEnd() {},
