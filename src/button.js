@@ -7,7 +7,7 @@ export default class MenuButton extends Component {
     x: PropTypes.number.isRequired,
     y: PropTypes.number.isRequired,
     onClick: PropTypes.func,
-      bumpy: PropTypes.bool
+    bumpy: PropTypes.bool,
   };
 
   constructor(props) {
@@ -15,36 +15,35 @@ export default class MenuButton extends Component {
     this.state = {
       sequence: 0,
     };
-      this.sequenceParams = this.props.bumpy ?
-          [
-              {
+    this.sequenceParams = this.props.bumpy ?
+        [
+            {
                   scaleX: spring(1, { stiffness: 1500, damping: 10 }),
                   scaleY: spring(1, { stiffness: 1500, damping: 10 }),
-              },
-              {
+            },
+            {
                   scaleX: spring(0.6, { stiffness: 1500, damping: 50 }),
                   scaleY: spring(0.6, { stiffness: 1500, damping: 50 }),
-              },
-              {
+            },
+            {
                   scaleX: spring(1, {stiffness: 1500, damping: 10}),
                   scaleY: spring(1, {stiffness: 1500, damping: 10}),
-              }
-          ]:
-          [
-              {
+            }
+        ]:
+        [
+            {
                   scaleX: spring(1, { stiffness: 1500, damping: 10 }),
                   scaleY: spring(1, { stiffness: 1500, damping: 10 }),
-              },
-              {
+            },
+            {
                   scaleX: spring(1, { stiffness: 200, damping: 50 }),
                   scaleY: spring(1, { stiffness: 200, damping: 50 }),
-              },
-              {
+            },
+            {
                   scaleX: spring(1, { stiffness: 1500, damping: 10 }),
                   scaleY: spring(1, { stiffness: 1500, damping: 10 }),
-              },
-          ];
-
+            },
+        ];
   }
 
   start() {
