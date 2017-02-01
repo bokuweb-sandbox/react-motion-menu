@@ -51,8 +51,8 @@ export default class MenuItem extends Component {
     onOpenAnimationEnd: PropTypes.func,
     onCloseAnimationEnd: PropTypes.func,
     bumpy: PropTypes.bool.isRequired,
-    openSpeed: PropTypes.number,
-    reverse: PropTypes.bool,
+    openSpeed: PropTypes.number.isRequired,
+    reverse: PropTypes.bool.isRequired,
     type: PropTypes.oneOf(['horizontal', 'vertical', 'circle']).isRequired,
   }
 

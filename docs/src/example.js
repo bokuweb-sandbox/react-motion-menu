@@ -3,12 +3,12 @@ import MotionMenu from '../../src';
 
 export default () => (
   <MotionMenu
-    type="vertical"
+    type="circle"
     margin={120}
     y={0}
-    bumpy={false}
+    bumpy
     x={0}
-    openSpeed={10}
+    openSpeed={60}
     wing={false}
     reverse={false}
   >

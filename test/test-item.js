@@ -10,7 +10,7 @@ describe('Item Component test', function () {
 
   it('should mount item component without error', () => {
     mount(
-      <MenuItem x={0} y={0} name="sample">
+      <MenuItem x={0} y={0} name="sample" bumpy openSpeed={60} type={'circle'} reverse={false}>
         <div>sample</div>
       </MenuItem>,
     );
@@ -19,7 +19,7 @@ describe('Item Component test', function () {
   it('should call onOpenAnimationEnd callback, when opend', (done) => {
     const onOpenAnimationEnd = spy();
     const wrapper = shallow(
-      <MenuItem x={0} y={0} name="sample" onOpenAnimationEnd={onOpenAnimationEnd}>
+      <MenuItem x={0} y={0} name="sample" onOpenAnimationEnd={onOpenAnimationEnd} bumpy openSpeed={60} type={'circle'} reverse={false}>
         <div>sample</div>
       </MenuItem>,
     );
@@ -33,7 +33,7 @@ describe('Item Component test', function () {
 
   it('should call onOpenAnimationEnd callback, when opend', (done) => {
     const wrapper = mount(
-      <MenuItem x={10} y={20} name="sample">
+      <MenuItem x={10} y={20} name="sample" bumpy openSpeed={60} type={'circle'} reverse={false}>
         <div>sample</div>
       </MenuItem>,
     );
@@ -47,7 +47,7 @@ describe('Item Component test', function () {
   it('should call onCloseAnimationEnd callback, when closed', (done) => {
     const onCloseAnimationEnd = spy();
     const wrapper = shallow(
-      <MenuItem x={0} y={0} name="sample" onCloseAnimationEnd={onCloseAnimationEnd}>
+      <MenuItem x={0} y={0} name="sample" onCloseAnimationEnd={onCloseAnimationEnd} bumpy openSpeed={60} type={'circle'} reverse={false}>
         <div>sample</div>
       </MenuItem>,
     );

@@ -24,7 +24,7 @@ export default class MotionMenu extends Component {
     style: {},
     onClose: () => {},
     onOpen: () => {},
-    bumpy: false,
+    bumpy: true,
     openSpeed: 60,
     reverse: false,
   }
