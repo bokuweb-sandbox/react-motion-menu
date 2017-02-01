@@ -80,10 +80,12 @@ This prop controls if the menu items should open in bumpy mode or in smooth mode
 Default mode is set to bumpy effect. 
 
 #### `openSpeed: PropTypes.number`
+
 This prop controls how fast the menu items should open. Default speed is set to 60 milliseconds.
  
 #### `reverse: PropTypes.bool`
-This controls if the menu should open in reverse direction.
+
+This prop controls if the menu should open in reverse direction or not. 
 
 ## Test
 
