@@ -6,7 +6,11 @@ export default () => (
     type="circle"
     margin={120}
     y={0}
+    bumpy
     x={0}
+    openSpeed={60}
+    wing={false}
+    reverse={false}
   >
     <div className="button"><i className="fa fa-bars" /></div>
     <div className="button"><i className="fa fa-cogs" /></div>

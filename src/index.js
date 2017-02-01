@@ -13,6 +13,9 @@ export default class MotionMenu extends Component {
     onClose: PropTypes.func,
     onOpen: PropTypes.func,
     className: PropTypes.string,
+    bumpy: PropTypes.bool,
+    openSpeed: PropTypes.number,
+    reverse: PropTypes.bool,
   }
 
   static defaultProps = {
@@ -21,6 +24,9 @@ export default class MotionMenu extends Component {
     style: {},
     onClose: () => {},
     onOpen: () => {},
+    bumpy: true,
+    openSpeed: 60,
+    reverse: false,
   }
 
   constructor(props) {
@@ -98,12 +104,11 @@ export default class MotionMenu extends Component {
   }
 
   getItems() {
-    const { x, y } = this.props;
+    const { x, y, bumpy } = this.props;
     return Array.from(Array(this.state.itemNumber).keys())
       .reverse()
       .map(i => (
         <MenuItem
-          direction={this.props.type}
           key={i}
           ref={(c) => { this.items[i + 1] = c; }}
           name={`item${i + 1}`}
@@ -111,6 +116,10 @@ export default class MotionMenu extends Component {
           onCloseAnimationEnd={this.onCloseEnd}
           x={this.getX(i, x)}
           y={this.getY(i, y)}
+          bumpy={bumpy}
+          openSpeed={this.props.openSpeed}
+          reverse={this.props.reverse}
+          type={this.props.type}
         >
           {this.props.children[i + 1]}
         </MenuItem>
@@ -125,6 +134,7 @@ export default class MotionMenu extends Component {
         onClick={this.onClick}
         x={this.props.x}
         y={this.props.y}
+        bumpy={this.props.bumpy}
       >
         {this.props.children[0]}
       </MenuButton>

@@ -1,7 +1,26 @@
 import React, { Component, PropTypes, cloneElement } from 'react';
 import { Motion, spring } from 'react-motion';
 
-const createParams = ({ x, y }) => ([
+const createSmoothParams = ({ x, y }) => ([
+  {
+    scaleX: spring(0, { stiffness: 1500, damping: 100 }),
+    scaleY: spring(0, { stiffness: 1500, damping: 100 }),
+    x: spring(x, { stiffness: 1500, damping: 50 }),
+    y: spring(y, { stiffness: 1500, damping: 50 }),
+  }, {
+    scaleX: spring(0.5, { stiffness: 120, damping: 20 }),
+    scaleY: spring(0.5, { stiffness: 120, damping: 20 }),
+    x: spring(x, { stiffness: 120, damping: 20 }),
+    y: spring(y, { stiffness: 120, damping: 20 }),
+  }, {
+    scaleX: spring(1, { stiffness: 120, damping: 20 }),
+    scaleY: spring(1, { stiffness: 120, damping: 20 }),
+    x: spring(x, { stiffness: 120, damping: 20 }),
+    y: spring(y, { stiffness: 120, damping: 20 }),
+  },
+]);
+
+const createBumpyParams = (x, y) => ([
   {
     scaleX: spring(0, { stiffness: 1500, damping: 100 }),
     scaleY: spring(0, { stiffness: 1500, damping: 100 }),
@@ -22,6 +41,7 @@ const createParams = ({ x, y }) => ([
   },
 ]);
 
+
 export default class MenuItem extends Component {
 
   static propTypes = {
@@ -30,6 +50,10 @@ export default class MenuItem extends Component {
     name: PropTypes.string.isRequired,
     onOpenAnimationEnd: PropTypes.func,
     onCloseAnimationEnd: PropTypes.func,
+    bumpy: PropTypes.bool.isRequired,
+    openSpeed: PropTypes.number.isRequired,
+    reverse: PropTypes.bool.isRequired,
+    type: PropTypes.oneOf(['horizontal', 'vertical', 'circle']).isRequired,
   }
 
   static defaultProps = {
@@ -43,20 +67,21 @@ export default class MenuItem extends Component {
     this.state = {
       sequence: 0,
     };
-    this.sequenceParams = createParams(props);
+
+    this.sequenceParams = this.props.bumpy ? createBumpyParams(props) : createSmoothParams(props);
   }
 
   start() {
     this.timerIds[1] = setTimeout(() => {
       this.setState({ sequence: 1 });
       this.timerIds[1] = null;
-    }, 60);
+    }, this.props.openSpeed);
 
     this.timerIds[2] = setTimeout(() => {
       this.setState({ sequence: 2 });
       this.timerIds[2] = null;
       this.props.onOpenAnimationEnd(this.props.name);
-    }, 80);
+    }, this.props.openSpeed);
   }
 
   reverse() {
@@ -69,7 +94,16 @@ export default class MenuItem extends Component {
   }
 
   render() {
-    const { x, y } = this.props;
+    const { x, y, reverse, type } = this.props;
+    let newX;
+    let newY;
+    if (reverse) {
+      newX = (-1) * (x);
+      newY = type === 'vertical' ? (-1) * (y) : y;
+    } else {
+      newX = x;
+      newY = y;
+    }
     if (!this.props.children) return null;
     return (
       <Motion style={this.sequenceParams[this.state.sequence]}>
@@ -80,8 +114,8 @@ export default class MenuItem extends Component {
               ...(this.props.children.props || {}),
               style: {
                 ...((this.props.children.props && this.props.children.props.style) || {}),
-                transform: `translate3d(${x}px, ${y}px, 0) scaleX(${scaleX}) scaleY(${scaleY})`,
-                WebkitTransform: `translate3d(${x}px, ${y}px, 0) scaleX(${scaleX}) scaleY(${scaleY})`,
+                transform: `translate3d(${newX}px, ${newY}px, 0) scaleX(${scaleX}) scaleY(${scaleY})`,
+                WebkitTransform: `translate3d(${newX}px, ${newY}px, 0) scaleX(${scaleX}) scaleY(${scaleY})`,
                 position: 'absolute',
               },
             },
