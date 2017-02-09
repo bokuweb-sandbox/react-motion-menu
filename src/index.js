@@ -57,6 +57,9 @@ export default class MotionMenu extends Component {
 
   onCloseEnd(name) {
     if (this.state.action === 'open') return;
+    if (name === 'item1') {
+      this.props.onClose();
+    }
     if (this.state.itemNumber > 1) {
       if (name === 'item1') {
         this.props.onClose();

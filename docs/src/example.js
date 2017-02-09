@@ -10,7 +10,9 @@ export default () => (
     x={0}
     openSpeed={60}
     wing={false}
-    reverse={false}
+     reverse={false}
+     onOpen={() => console.log('onOpen')}
+     onClose={() => console.log('onClose')}
   >
     <div className="button"><i className="fa fa-bars" /></div>
     <div className="button"><i className="fa fa-cogs" /></div>

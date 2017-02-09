@@ -22,7 +22,17 @@ exports.default = function () {
       type: 'circle',
       margin: 120,
       y: 0,
-      x: 0
+      bumpy: true,
+      x: 0,
+      openSpeed: 60,
+      wing: false,
+      reverse: false,
+      onOpen: function onOpen() {
+        return console.log('onOpen');
+      },
+      onClose: function onClose() {
+        return console.log('onClose');
+      }
     },
     _react2.default.createElement(
       'div',
@@ -289,7 +299,7 @@ module.exports = camelizeStyleName;
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  *
- *
+ * 
  */
 
 var isTextNode = require('./isTextNode');
@@ -21993,12 +22003,21 @@ var MenuButton = function (_Component) {
     _this.state = {
       sequence: 0
     };
-    _this.sequenceParams = [{
+    _this.sequenceParams = _this.props.bumpy ? [{
       scaleX: (0, _reactMotion.spring)(1, { stiffness: 1500, damping: 10 }),
       scaleY: (0, _reactMotion.spring)(1, { stiffness: 1500, damping: 10 })
     }, {
       scaleX: (0, _reactMotion.spring)(0.6, { stiffness: 1500, damping: 50 }),
       scaleY: (0, _reactMotion.spring)(0.6, { stiffness: 1500, damping: 50 })
+    }, {
+      scaleX: (0, _reactMotion.spring)(1, { stiffness: 1500, damping: 10 }),
+      scaleY: (0, _reactMotion.spring)(1, { stiffness: 1500, damping: 10 })
+    }] : [{
+      scaleX: (0, _reactMotion.spring)(1, { stiffness: 1500, damping: 10 }),
+      scaleY: (0, _reactMotion.spring)(1, { stiffness: 1500, damping: 10 })
+    }, {
+      scaleX: (0, _reactMotion.spring)(1, { stiffness: 200, damping: 50 }),
+      scaleY: (0, _reactMotion.spring)(1, { stiffness: 200, damping: 50 })
     }, {
       scaleX: (0, _reactMotion.spring)(1, { stiffness: 1500, damping: 10 }),
       scaleY: (0, _reactMotion.spring)(1, { stiffness: 1500, damping: 10 })
@@ -22047,7 +22066,7 @@ var MenuButton = function (_Component) {
               scaleY = _ref.scaleY;
           return (0, _react.cloneElement)(_this4.props.children, _extends({}, _this4.props.children.props || {}, {
             onClick: onClick,
-            style: _extends({}, _this4.props.children.props.style, {
+            style: _extends({}, _this4.props.children.props && _this4.props.children.props.style || {}, {
               transform: 'translate3d(' + x + 'px, ' + y + 'px, 0) scaleX(' + scaleX + ') scaleY(' + scaleY + ')',
               WebkitTransform: 'translate3d(' + x + 'px, ' + y + 'px, 0) scaleX(' + scaleX + ') scaleY(' + scaleY + ')',
               position: 'absolute'
@@ -22064,7 +22083,8 @@ var MenuButton = function (_Component) {
 MenuButton.propTypes = {
   x: _react.PropTypes.number.isRequired,
   y: _react.PropTypes.number.isRequired,
-  onClick: _react.PropTypes.func
+  onClick: _react.PropTypes.func,
+  bumpy: _react.PropTypes.bool
 };
 exports.default = MenuButton;
 
@@ -22135,6 +22155,9 @@ var MotionMenu = function (_Component) {
     key: 'onCloseEnd',
     value: function onCloseEnd(name) {
       if (this.state.action === 'open') return;
+      if (name === 'item1') {
+        this.props.onClose();
+      }
       if (this.state.itemNumber > 1) {
         if (name === 'item1') {
           this.props.onClose();
@@ -22197,13 +22220,13 @@ var MotionMenu = function (_Component) {
 
       var _props3 = this.props,
           x = _props3.x,
-          y = _props3.y;
+          y = _props3.y,
+          bumpy = _props3.bumpy;
 
       return Array.from(Array(this.state.itemNumber).keys()).reverse().map(function (i) {
         return _react2.default.createElement(
           _item2.default,
           {
-            direction: _this2.props.type,
             key: i,
             ref: function ref(c) {
               _this2.items[i + 1] = c;
@@ -22212,7 +22235,11 @@ var MotionMenu = function (_Component) {
             onOpenAnimationEnd: _this2.onOpenEnd,
             onCloseAnimationEnd: _this2.onCloseEnd,
             x: _this2.getX(i, x),
-            y: _this2.getY(i, y)
+            y: _this2.getY(i, y),
+            bumpy: bumpy,
+            openSpeed: _this2.props.openSpeed,
+            reverse: _this2.props.reverse,
+            type: _this2.props.type
           },
           _this2.props.children[i + 1]
         );
@@ -22278,7 +22305,8 @@ var MotionMenu = function (_Component) {
           },
           onClick: this.onClick,
           x: this.props.x,
-          y: this.props.y
+          y: this.props.y,
+          bumpy: this.props.bumpy
         },
         this.props.children[0]
       );
@@ -22296,14 +22324,20 @@ MotionMenu.propTypes = {
   y: _react.PropTypes.number,
   onClose: _react.PropTypes.func,
   onOpen: _react.PropTypes.func,
-  className: _react.PropTypes.string
+  className: _react.PropTypes.string,
+  bumpy: _react.PropTypes.bool,
+  openSpeed: _react.PropTypes.number,
+  reverse: _react.PropTypes.bool
 };
 MotionMenu.defaultProps = {
   x: 0,
   y: 0,
   style: {},
   onClose: function onClose() {},
-  onOpen: function onOpen() {}
+  onOpen: function onOpen() {},
+  bumpy: true,
+  openSpeed: 60,
+  reverse: false
 };
 exports.default = MotionMenu;
 
@@ -22332,9 +22366,28 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var createParams = function createParams(_ref) {
+var createSmoothParams = function createSmoothParams(_ref) {
   var x = _ref.x,
       y = _ref.y;
+  return [{
+    scaleX: (0, _reactMotion.spring)(0, { stiffness: 1500, damping: 100 }),
+    scaleY: (0, _reactMotion.spring)(0, { stiffness: 1500, damping: 100 }),
+    x: (0, _reactMotion.spring)(x, { stiffness: 1500, damping: 50 }),
+    y: (0, _reactMotion.spring)(y, { stiffness: 1500, damping: 50 })
+  }, {
+    scaleX: (0, _reactMotion.spring)(0.5, { stiffness: 120, damping: 20 }),
+    scaleY: (0, _reactMotion.spring)(0.5, { stiffness: 120, damping: 20 }),
+    x: (0, _reactMotion.spring)(x, { stiffness: 120, damping: 20 }),
+    y: (0, _reactMotion.spring)(y, { stiffness: 120, damping: 20 })
+  }, {
+    scaleX: (0, _reactMotion.spring)(1, { stiffness: 120, damping: 20 }),
+    scaleY: (0, _reactMotion.spring)(1, { stiffness: 120, damping: 20 }),
+    x: (0, _reactMotion.spring)(x, { stiffness: 120, damping: 20 }),
+    y: (0, _reactMotion.spring)(y, { stiffness: 120, damping: 20 })
+  }];
+};
+
+var createBumpyParams = function createBumpyParams(x, y) {
   return [{
     scaleX: (0, _reactMotion.spring)(0, { stiffness: 1500, damping: 100 }),
     scaleY: (0, _reactMotion.spring)(0, { stiffness: 1500, damping: 100 }),
@@ -22365,7 +22418,8 @@ var MenuItem = function (_Component) {
     _this.state = {
       sequence: 0
     };
-    _this.sequenceParams = createParams(props);
+
+    _this.sequenceParams = _this.props.bumpy ? createBumpyParams(props) : createSmoothParams(props);
     return _this;
   }
 
@@ -22377,13 +22431,13 @@ var MenuItem = function (_Component) {
       this.timerIds[1] = setTimeout(function () {
         _this2.setState({ sequence: 1 });
         _this2.timerIds[1] = null;
-      }, 60);
+      }, this.props.openSpeed);
 
       this.timerIds[2] = setTimeout(function () {
         _this2.setState({ sequence: 2 });
         _this2.timerIds[2] = null;
         _this2.props.onOpenAnimationEnd(_this2.props.name);
-      }, 80);
+      }, this.props.openSpeed);
     }
   }, {
     key: 'reverse',
@@ -22406,8 +22460,19 @@ var MenuItem = function (_Component) {
 
       var _props = this.props,
           x = _props.x,
-          y = _props.y;
+          y = _props.y,
+          reverse = _props.reverse,
+          type = _props.type;
 
+      var newX = void 0;
+      var newY = void 0;
+      if (reverse) {
+        newX = -1 * x;
+        newY = type === 'vertical' ? -1 * y : y;
+      } else {
+        newX = x;
+        newY = y;
+      }
       if (!this.props.children) return null;
       return _react2.default.createElement(
         _reactMotion.Motion,
@@ -22416,9 +22481,9 @@ var MenuItem = function (_Component) {
           var scaleX = _ref2.scaleX,
               scaleY = _ref2.scaleY;
           return (0, _react.cloneElement)(_this4.props.children, _extends({}, _this4.props.children.props || {}, {
-            style: _extends({}, _this4.props.children.props.style, {
-              transform: 'translate3d(' + x + 'px, ' + y + 'px, 0) scaleX(' + scaleX + ') scaleY(' + scaleY + ')',
-              WebkitTransform: 'translate3d(' + x + 'px, ' + y + 'px, 0) scaleX(' + scaleX + ') scaleY(' + scaleY + ')',
+            style: _extends({}, _this4.props.children.props && _this4.props.children.props.style || {}, {
+              transform: 'translate3d(' + newX + 'px, ' + newY + 'px, 0) scaleX(' + scaleX + ') scaleY(' + scaleY + ')',
+              WebkitTransform: 'translate3d(' + newX + 'px, ' + newY + 'px, 0) scaleX(' + scaleX + ') scaleY(' + scaleY + ')',
               position: 'absolute'
             })
           }));
@@ -22435,7 +22500,11 @@ MenuItem.propTypes = {
   y: _react.PropTypes.number.isRequired,
   name: _react.PropTypes.string.isRequired,
   onOpenAnimationEnd: _react.PropTypes.func,
-  onCloseAnimationEnd: _react.PropTypes.func
+  onCloseAnimationEnd: _react.PropTypes.func,
+  bumpy: _react.PropTypes.bool.isRequired,
+  openSpeed: _react.PropTypes.number.isRequired,
+  reverse: _react.PropTypes.bool.isRequired,
+  type: _react.PropTypes.oneOf(['horizontal', 'vertical', 'circle']).isRequired
 };
 MenuItem.defaultProps = {
   onOpenAnimationEnd: function onOpenAnimationEnd() {},
