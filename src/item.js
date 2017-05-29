@@ -1,4 +1,5 @@
-import React, { Component, PropTypes, cloneElement } from 'react';
+import React, { Component, cloneElement } from 'react';
+import PropTypes from 'prop-types';
 import { Motion, spring } from 'react-motion';
 
 const createSmoothParams = ({ x, y }) => ([
