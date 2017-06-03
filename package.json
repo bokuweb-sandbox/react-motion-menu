@@ -1,6 +1,6 @@
 {
   "name": "react-motion-menu",
-  "version": "0.4.3",
+  "version": "0.4.4",
   "main": "lib/index.js",
   "scripts": {
     "watch:example": "watchify --extension=js -o docs/dist/bundle.js docs/src/index.js",
