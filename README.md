@@ -10,6 +10,8 @@
 
 ## Demo
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/bokuweb/react-motion-menu.svg)](https://greenkeeper.io/)
+
 ![screenshot](https://github.com/bokuweb/react-motion-menu/blob/master/docs/screenshot.gif?raw=true)
 
 See demo: [http://bokuweb.github.io/react-motion-menu/](http://bokuweb.github.io/react-motion-menu/)
