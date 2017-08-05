@@ -1,10 +1,12 @@
-# react-motion-menu
+<p align="center"><img src ="https://github.com/bokuweb/react-motion-menu/blob/master/logo.png?raw=true" /></p>
 
-Animation menu component for React.
+<p align="center">Animation menu component for React.</p>
 
-[![Build Status](https://img.shields.io/travis/bokuweb/react-motion-menu.svg?style=flat-square)](https://travis-ci.org/bokuweb/react-motion-menu)
-[![Version](https://img.shields.io/npm/v/react-motion-menu.svg?style=flat-square)](https://www.npmjs.com/package/react-motion-menu)
-[![License](http://img.shields.io/npm/l/object.assign.svg?style=flat-square)](https://github.com/bokuweb/react-motion-menu#license)
+<p align="center"><a href="https://travis-ci.org/bokuweb/react-motion-menu.svg">
+<img src="https://img.shields.io/travis/bokuweb/react-motion-menu.svg?" alt="Build Status" /></a>
+<a href="https://www.npmjs.com/package/react-motion-menu">
+<img src="https://img.shields.io/npm/v/react-motion-menu.svg" alt="Build Status" /></a> 
+</p>
 
 ## Demo
 
