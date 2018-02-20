@@ -1,8 +1,14 @@
-<p align="center"><img src ="https://github.com/bokuweb/react-motion-menu/blob/master/logo.png?raw=true" /></p>
+# Deprecated
 
-<p align="center">Animation menu component for React.</p>
+Deprecated as the react-motion-menu project is no longer maintained.
 
-<p align="center"><a href="https://travis-ci.org/bokuweb/react-motion-menu.svg">
+---
+
+# react-motion-menu
+
+Animation menu component for React.
+
+<p><a href="https://travis-ci.org/bokuweb/react-motion-menu.svg">
 <img src="https://img.shields.io/travis/bokuweb/react-motion-menu.svg?" alt="Build Status" /></a>
 <a href="https://www.npmjs.com/package/react-motion-menu">
 <img src="https://img.shields.io/npm/v/react-motion-menu.svg" alt="Build Status" /></a> 
